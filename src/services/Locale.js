@@ -1,9 +1,3 @@
-/** Local service
- *
- * manage current local, switch lang, provite i18n plugin etc...
- *
- * @author Nicolas Husson <hello@nusson.ninja>
- */
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import BrowserLanguage from 'in-browser-language';
@@ -11,21 +5,26 @@ import Cookies from 'js-cookie';
 import { head } from 'lodash';
 import Settings from '@/config/Settings';
 import { FR, EN } from 'datas/lang';
+/** Local service
+ *
+ * manage current local, switch lang, provite i18n plugin etc...
+ *
+ * @author Nicolas Husson <hello@nusson.ninja>
+ */
+
+let instance = null;
 
 Vue.use(VueI18n);
 
 class LocaleService {
   constructor() {
+    if (instance) {
+      return instance;
+    }
+    this.instance = this;
+
+    this.i18n = new VueI18n();
     this.lang = this.defaultLang;
-    // this.lang = this.lang;
-
-    console.log('this.messages', this.messages);
-
-
-    this.i18n = new VueI18n({
-      locale: this.lang, // set locale
-      messages: this.messages,
-    });
   }
 
   /**
@@ -38,7 +37,7 @@ class LocaleService {
   }
 
   get messages() {
-    switch (this.lang) {
+    switch (this.locale) {
       case 'fr':
         return FR;
       case 'en':
@@ -46,6 +45,27 @@ class LocaleService {
         return EN;
     }
   }
+
+  set lang(lang) {
+    this.locale = lang;
+    console.log(this.messages, lang);
+
+    this.i18n.setLocaleMessage(
+      lang,
+      this.messages,
+    );
+    this.i18n.locale = lang;
+  }
+  get lang() {
+    return this.locale;
+  }
+}
+instance = new LocaleService();
+
+if (Settings.isDev) {
+  window.LocaleService = instance;
+  console.log(instance); // eslint-disable-line
 }
 
-export default new LocaleService();
+const LocaleServiceSingleton = instance;
+export default LocaleServiceSingleton;

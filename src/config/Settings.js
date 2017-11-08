@@ -15,8 +15,9 @@ const Settings = {
     lang: 'lightemotion_v2_lang',
   },
   locales: ['fr', 'en'], // 1st = default
-  // API_PREFIX: 'api',
-  // BASE_URL: 'csa.int',
+  prefixRoute: true, // prefix route with locale
+  API_PREFIX: 'api',
+  BASE_URL: 'csa.int',
 };
 
 // if (typeof (window) !== 'undefined') {
@@ -29,7 +30,7 @@ const Settings = {
 // }
 
 // concat BASE_URL + PREFIX
-// Settings.API_URL = `${Settings.BASE_URL}/${Settings.API_PREFIX}/`;
+Settings.API_URL = `${Settings.BASE_URL}/${Settings.API_PREFIX}/`;
 
 
 module.exports = Settings;

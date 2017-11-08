@@ -1,3 +1,7 @@
+import Settings from '@/config/Settings';
+import LocaleService from '@/services/Locale';
+import Axios from 'axios';
+
 /** Service to consume our API
  *
  * For now, just read json files in assets/data
@@ -5,29 +9,40 @@
  * @author nicolas husson <hello@nusson.ninja
  */
 
-// allow to always return the same instance
-const instance = null;
+let instance = null;
 
 class APIService {
-  // static instance;
-
   constructor() {
     if (instance) {
       return instance;
     }
-
-    // console.log('[API] after check instance')
-    this.state = 'duke';
     this.instance = this;
+
+    this.axios = Axios.create();
+    this.lang = LocaleService.lang;
   }
 
-  static test(state) {
-    if (state) {
-      return state;
-    }
-    return 'test';
+  /**
+   * on set lang, update axios's baseUrl
+   */
+  set lang(lang = '') {
+    this.locale = lang;
+    this.baseUrl = `${Settings.API_URL + lang}/`;
+  }
+  get baseUrl() {
+    return this.axios.defaults.baseUrl;
+  }
+  set baseUrl(url) {
+    this.axios.defaults.baseUrl = url;
   }
 }
 
-// test to simply return a created instance, so it's a singleton ;)
-export default new APIService();
+instance = new APIService();
+
+if (Settings.isDev) {
+  window.APIService = instance;
+  console.log(instance); // eslint-disable-line
+}
+
+const APIServiceSingleton = instance;
+export default APIServiceSingleton;
