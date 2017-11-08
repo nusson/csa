@@ -13,9 +13,7 @@
       };
     },
     watch: { },
-    mounted() {
-      console.log(this, this.$t, this.$t('general'));
-    },
+    mounted() { },
     methods: {
 
     },

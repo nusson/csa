@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import LocaleService from '@/services/Locale';
 import APIService from '@/services/API';
-import Settings from '@/config/Settings';
-import Cookies from 'js-cookie';
 
 const route = {
   name: null,
@@ -43,10 +41,13 @@ export default {
       if (lang === state.lang) {
         return;
       }
-      state.lang = lang;
-      LocaleService.lang = state.lang;
-      Cookies.set(Settings.cookies.lang, state.lang);
-      APIService.lang = state.lang;
+      try {
+        LocaleService.lang = lang;
+        state.lang = lang;
+        APIService.lang = state.lang;
+      } catch (error) {
+        console.log('SET_LANG error', error);// eslint-disable-line
+      }
     },
   },
   getters: {
