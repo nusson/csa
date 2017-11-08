@@ -1,0 +1,54 @@
+/** Stylus settings (colors, sizes etc)
+ *
+ * Please, use only vars, mixins, functions etc
+ * But DO NO OUTPUT css declaration
+ * because this file will be included everywhere
+ *
+ * TABLE OF CONTENT
+ * --------
+ *  - IMPORTS
+ *  - SIZES_VIEWPORT
+ *  - SIZES_ELEMENTS
+ *  - Z-INDEX
+ *  - ANIMATIONS
+ *  - LOST_SETTINGS
+ *
+ * @author Nicolas Husson <hello@nusson.ninja>
+ */
+
+
+//  ===IMPORTS===
+
+  @import 'kouto-swiss'
+  @import './colors'
+  @import './fonts'
+  @import './utils'
+
+/* ===SIZES_VIEWPORT=== */
+  vp-phone = 600px
+  vp-tablet-portrait = 768px
+  vp-tablet = 1024px
+  vp-desktop = 1280px
+  vp-desktop-big = 1600px
+
+/* ===SIZES_ELEMENTS=== */
+  // h-header = 100px
+  h-logo = 30px
+
+/* ===Z-INDEX=== */
+  z-form = 100
+  z-cookies = 50
+  z-navbar = 800
+  z-navigation = 900
+  z-popin = 1000
+  z-cursor = 1100
+
+/* ===ANIMATIONS=== */
+  tr-in-ease = easing('out-expo')
+  tr-out-ease = easing('in-quad')
+  tr-fast = .25s
+  tr-speed = .5s
+
+/* ===LOST_SETTINGS=== */
+  @lost gutter 0px
+  @lost flexbox flex

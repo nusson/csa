@@ -16,5 +16,11 @@ module.exports = {
     source: 'src',
     img: 'src',
     image: 'xlink:href'
-  }
+  },
+  postcss: [
+    require('lost')(),
+    require('autoprefixer')({
+      browsers: ['last 5 versions']
+    }),
+  ]
 }

@@ -1,7 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h2>{{$t('general.test')}}</h2>
+    <pre>t:{{$t()}}</pre>
     <ul>
       <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
       <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
@@ -20,21 +21,36 @@
 </template>
 
 <script>
+// import APIService from 'services/API';
+
 export default {
   name: 'hello',
+  // i18n: LocaleService,
   data() {
     return {
       msg: 'Welcome to Your Vue.js PWA',
     };
   },
+  mounted() {
+  },
+  methods: {
+    test(test) {
+      if (test) {
+        return false;
+      }
+      return true;
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-h1, h2 {
+<style lang="stylus">
+
+h1, h2
   font-weight: normal;
-}
+  +below(500px)
+    color c-success
 
 ul {
   list-style-type: none;

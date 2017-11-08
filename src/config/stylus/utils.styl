@@ -1,0 +1,55 @@
+/** some utilities (mixins)
+ *
+ * TABLE OF CONTENT
+ * --------
+ *  - DEBUG
+ *  - SCREEN_SIZES
+ *    - width
+ *    - height
+ *    - dpi
+ *
+ * @author Nicolas Husson <hello@nusson.ninja>
+ */
+
+/* ===DEBUG=== */
+
+  // put alpha grey bg to (sub)items
+  edit()
+    lost-utility: edit;
+
+
+/* ===SCREEN_SIZES=== */
+
+  // width
+  between(minWidth, maxWidth)
+    @media screen and (min-width: minWidth) and (max-width: maxWidth)
+      {block}
+  above(minWidth)
+    @media screen and (min-width: minWidth + 1)
+      {block}
+  below(maxWidth)
+    @media screen and (max-width: maxWidth)
+      {block}
+
+  // height
+  between-height(minHeight, maxHeight)
+    @media screen and (min-height: minHeight) and (max-height: maxHeight)
+      {block}
+  above-height(minHeight)
+    @media screen and (min-height: minHeight)
+      {block}
+  below-height(maxHeight)
+    @media screen and (max-height: maxHeight)
+      {block}
+
+  // dpi
+  hdpi(density = 1.3)
+    media = " all"
+    query = media + " and (-webkit-min-device-pixel-ratio: " + density + "), "
+    query += media + " and (min--moz-device-pixel-ratio: " + density + "), "
+    query += media + " and (-o-min-device-pixel-ratio: " + density + "/1), "
+    query += media + " and (min-device-pixel-ratio: " + density + "), "
+    query += media + " and (min-resolution: " + ceil( density * 96 ) + "dpi), "
+    query += media + " and (min-resolution: " + density + "dppx)"
+    @media query
+      {block}

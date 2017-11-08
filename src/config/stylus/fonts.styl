@@ -1,0 +1,79 @@
+/** Fonts settings
+ *
+ * TABLE OF CONTENT
+ * --------
+ *  - FONT_FAMILLY
+ *  - FONT_SIZE
+ *  - FONT_WEIGHT
+ *  - LINE_HEIGHT
+ *  - FONT_MIXIN
+ *
+ * @author Nicolas Husson <hello@nusson.ninja>
+ */
+
+/* ===FONT_FAMILLY=== */
+  ff-safe = Arial, Helvetica, sans-serif
+  ff-bold = /*YOUR_FONT_Bold,*/ Arial, Helvetica, sans-serif
+  ff-medium = /*YOUR_FONT_Medium,*/ Arial, Helvetica, sans-serif
+  ff-regular = /*YOUR_FONT_Regular,*/ Arial, Helvetica, sans-serif
+  ff-light = /*YOUR_FONT_Light,*/ Arial, Helvetica, sans-serif
+
+/* ===FONT_SIZE=== */
+  // 1rem = 10px
+  fz-title        = 10rem
+  fz-small-title  = 8rem
+  fz-subtitle     = 5rem
+  fz-highlight    = 3rem
+  fz-normal       = 2rem
+  fz-small        = 1.6rem
+  fz-extra-small  = 1.4rem
+
+/* ===FONT_WEIGHT=== */
+  fw-black    = 800
+  fw-bold     = 700
+  fw-semibold = 600
+  fw-medium   = 500
+  fw-regular  = 400
+
+/* ===LINE_HEIGHT=== */
+  lh-default  = 1.25
+
+/* ===FONT_MIXIN=== */
+
+  /**
+  * choose a weight and ensure correct font is applied
+  * will use safe font if body has _safe-font class
+  */
+  font(weight=regular)
+    if weight is black
+      font-family ff-black
+      font-weight fw-black
+      letter-spacing: .2em
+    else if weight is semibold
+      font-family ff-semibold
+      font-weight fw-semibold
+    else if weight is medium
+      font-family ff-medium
+      font-weight fw-medium
+    else if weight is regular
+      font-family ff-regular
+      font-weight fw-regular
+
+    ._safe-font &
+      font-family ff-safe
+
+  font-url(file)
+    return '~commons/fonts/fonts/' + file
+
+  webfont(family, file, weight = 400)
+    @font-face
+      font-family family
+      src: url(font-url(file + '.woff')) format('woff')
+      font-weight weight
+      font-style normal
+
+// !!! BE CAREFULL, DO NOT OUTPUT CSS FROM SETTINGS (included everywhere)
+// webfont(YOUR_FONT_Light, 'GT-Walsheim-Pro-Light', 200)
+// webfont(YOUR_FONT_Regular, 'gt-walsheim-pro-regular', 400)
+// webfont(YOUR_FONT_Medium, 'GT-Walsheim-Pro-Medium', 500)
+// webfont(YOUR_FONT_Bold, 'gt-walsheim-pro-bold', 700)

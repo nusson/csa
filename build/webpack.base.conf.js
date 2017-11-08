@@ -1,5 +1,6 @@
 'use strict'
 
+const webpack = require('webpack')
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
@@ -23,7 +24,18 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@': resolve('src')
+      '@': resolve('src'),
+      'src': resolve('src'),
+      'assets': resolve('src/assets'),
+      'img': resolve('src/assets/img'),
+      'datas': resolve('src/assets/datas'),
+      'components': resolve('src/components'),
+      'components': resolve('src/components'),
+      'cpt': resolve('src/components'),
+      'ui': resolve('src/components/ui'),
+      'config': resolve('src/config'),
+      'utils': resolve('src/utils'),
+      'services': resolve('src/services'),
     }
   },
   module: {
@@ -32,9 +44,11 @@ module.exports = {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
+        exclude: /node_modules/,
         include: [resolve('src'), resolve('test')],
         options: {
-          formatter: require('eslint-friendly-formatter')
+          formatter: require('eslint-friendly-formatter'),
+          fix: true,
         }
       },
       {
@@ -72,5 +86,20 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        stylus: {
+          use: [
+            require('kouto-swiss')(),
+          ],
+          import: [
+            path.join(__dirname, '../src/config/stylus/index')
+          ],
+          preferPathResolver: 'webpack'
+        }
+      }
+    }),
+  ]
 }

@@ -2,14 +2,19 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  // parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module'
+    parser: 'babel-eslint',
+    ecmaVersion: 2017,
+    sourceType: 'module',
   },
   env: {
     browser: true,
   },
-  extends: 'airbnb-base',
+  extends: [
+    'airbnb-base',
+    // 'plugin:vue/base', // or 'plugin:vue/recommended'
+  ],
   // required to lint *.vue files
   plugins: [
     'html'
@@ -34,6 +39,7 @@ module.exports = {
       'optionalDependencies': ['test/unit/index.js']
     }],
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    'class-methods-use-this': 0,
   }
 }
