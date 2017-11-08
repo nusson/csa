@@ -21,9 +21,9 @@ For now it's just a prototype, so no backend, only front.
 
 You'll need thefollowing :
 
-- nodejs
-- npm (installed with nodejs...)
-- yarn `npm install --global yarn`
+- nodejs >=8 (check nvm to update)
+- npm >=5 (installed with nodejs...)
+- yarn >=1.4 `npm install --global yarn`
 
 ### Build Setup
 
