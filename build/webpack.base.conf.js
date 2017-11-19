@@ -36,6 +36,14 @@ module.exports = {
       'config': resolve('src/config'),
       'utils': resolve('src/utils'),
       'services': resolve('src/services'),
+      // to work with gsap, scrollmagic and our pro plugins
+      "gsapPlugins": resolve('node_modules/gsap/src/uncompressed/plugins'),
+      "TweenLite": resolve('node_modules/gsap/src/uncompressed/TweenLite.js'),
+      "TweenMax": resolve('node_modules/gsap/src/uncompressed/TweenMax.js'),
+      "TimelineLite": resolve('node_modules/gsap/src/uncompressed/TimelineLite.js'),
+      "TimelineMax": resolve('node_modules/gsap/src/uncompressed/TimelineMax.js'),
+      "ScrollMagic": resolve('node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
+      "ScrollMagicPlugins": resolve('node_modules/scrollmagic/scrollmagic/uncompressed/plugins/'),
     }
   },
   module: {
@@ -70,7 +78,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        test: /\.(mp4|webm|ogg|mp3|mov|wav|flac|aac)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,

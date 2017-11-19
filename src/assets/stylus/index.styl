@@ -1,0 +1,45 @@
+/** inline rendered (general) style
+ *
+ * Those declarations will be outputed directly in our dom (performance purpose)
+ *
+ * @author Nicolas Husson <hello@nusson.ninja>
+ *
+ */
+meyer-reset()
+
+.PageHeader
+  padding-top: 42vh
+
+.PageTitle
+  position relative
+  margin: 0 auto
+  padding-left: vp-big-gutter
+  // max-width: vp-max
+  >.text
+    text-align: left
+    display inline-block
+    background-color rgba(c-white, 33%)
+    color rgba(white, 42%)
+    text-transform uppercase
+    font-family ff-bold
+    font-size fz-title
+    font-weight fw-black
+    padding 0.1em 0.2em 0.2em
+    line-height 0.8em
+    letter-spacing 0em
+    box-sizing content-box
+
+
+.VideoBackground
+  absolute 0 false false 0
+  size 100%
+  z-index -100
+  object-fit cover
+  object-position center center
+  // transform: translate(-50%, -50%)
+    // falback ie
+    // fixed 50% false false 50%
+    // size auto
+    // min-width 100%
+    // min-height 100%
+    // transform translateX(-50%) translateY(-50%)

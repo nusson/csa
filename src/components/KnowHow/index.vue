@@ -1,12 +1,10 @@
 <script>
-  import 'assets/stylus/index.styl';
-
-  /** > Our entry point
+  /** > The expertise main page
    *
    * @author Nicolas Husson <hello@nusson.ninja>
    */
   export default {
-    name: 'App',
+    name: 'ExpertisePage',
     components: { },
     props: { },
     data() {
@@ -22,17 +20,12 @@
 </script>
 
 <template>
-  <div :class="['App', {'is-debug': debug}]">
-
-    <main>
-      <router-view ref="page"></router-view>
-    </main>
-
+  <div :class="['ExpertisePage', {'is-debug': debug}]">
+    ExpertisePage
   </div>
 </template>
 
 <style lang="stylus" scoped>
-  // @require '~/assets/stylus/index'
   /**
   * TABLE OF CONTENT
   * --------
@@ -49,10 +42,10 @@
 
 <style lang="stylus">
   //  ===NO_SCOPE===
-  .App
+  .ExpertisePage
     //
 
   //  ===DEBUG===
-  .App.is_debug
+  .ExpertisePage.is_debug
     //
 </style>
