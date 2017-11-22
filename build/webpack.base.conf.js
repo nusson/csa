@@ -36,6 +36,7 @@ module.exports = {
       'config': resolve('src/config'),
       'utils': resolve('src/utils'),
       'services': resolve('src/services'),
+      'vendors': resolve('src/vendors'),
       // to work with gsap, scrollmagic and our pro plugins
       "gsapPlugins": resolve('node_modules/gsap/src/uncompressed/plugins'),
       "TweenLite": resolve('node_modules/gsap/src/uncompressed/TweenLite.js'),

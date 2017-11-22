@@ -1,4 +1,4 @@
-
+/* eslint-disable global-require */
 function asyncRequire(name, type = 'component') {
   switch (type) {
     case 'component':
@@ -17,7 +17,9 @@ function asyncRequire(name, type = 'component') {
 }
 
 /*
+  Communauté
   Événement
+  Savoir-faire
   À propos
   Contact
 
@@ -25,21 +27,27 @@ function asyncRequire(name, type = 'component') {
 */
 const Global = {
   pages: {
+    /* Homepage
+     * Maybe just a nive introduction video
+     * then this whole page is a swiper that'll fit in a page header
+     */
     home: {
       route: {
         en: '/',
         fr: '/',
         component: asyncRequire('Home'),
       },
-      background: require('@/assets/_ignore/images/highline-shadow.jpg'), //eslint-disable-line
+      background: require('@/assets/_ignore/images/highline-shadow.jpg'),
+      // highline-dark-sky.jpg, // eslint-disable-line
     },
     /* Communauté
-     * - Carte de la communauté
-     * - Aide aux associations et communauté de slackline
-     * - Records Canadien
-     * - Déclaration d’un accident ou incident
-     * - Rapports de comportement des fonctionnaires
-     * - Liens
+     * - Carte de la communauté 1 page
+     * - informations 1 page :
+     *  - Aide aux associations et communauté de slackline
+     *  - Records Canadien
+     *  - Déclaration d’un accident ou incident
+     *  - Rapports de comportement des fonctionnaires
+     *  - Liens
      */
     community: {
       route: {
@@ -47,9 +55,10 @@ const Global = {
         fr: '/communaute',
         component: asyncRequire('Home'),
       },
-      background: asyncRequire('_ignore/images/highline-shadow.jpg', 'assets'),
+      background: require('@/assets/_ignore/images/st-anne-queue-saisoniere.jpg'),
+      // background: require('@/assets/_ignore/images/st-anne-vlad-felix.jpg'),
     },
-    /* Événement
+    /* Événement = 1 page + details + filtres
      * - Compétition
      * - Festival
      * - Entrainement
@@ -61,9 +70,9 @@ const Global = {
         fr: '/evenements',
         component: asyncRequire('Home'),
       },
-      background: asyncRequire('_ignore/images/highline-shadow.jpg', 'assets'),
+      background: require('@/assets/_ignore/images/parc-with-people.jpg'),
     },
-    /* Savoir-faire
+    /* Savoir-faire 4 pages
      * - Les bases
      * - disciplines
      * - Savoir avancé
@@ -75,6 +84,8 @@ const Global = {
         fr: '/savoir-faire/',
         component: asyncRequire('KnowHow'),
       },
+      background: require('@/assets/_ignore/images/highline-dark-sky.jpg'),
+      // background: require('@/assets/_ignore/images/st-anne-vlad-felix.jpg'),
       children: {
         /* Les bases
          * - Les variances du sport
@@ -126,18 +137,18 @@ const Global = {
         },
       },
     },
-    /* À propos
+    /* À propos 1 page
      * - Organisation
      * - Ancien Délégué
      * - Missions
      * - Partenaire
      */
     about: {
-
+      background: require('@/assets/_ignore/images/big-bag.jpg'),
     },
     /* Contact */
     contact: {
-
+      background: require('@/assets/_ignore/images/team.jpg'),
     },
   },
 };

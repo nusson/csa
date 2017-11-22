@@ -1,4 +1,6 @@
 <script>
+  import { debounce } from 'lodash';
+  import Swiper from 'src/vendors/swiper';
   import Global from 'datas/Global';
   import { TimelineMax, TweenMax, Power4, Expo } from 'gsap';
 
@@ -12,14 +14,22 @@
     props: { },
     data() {
       return {
+        touch: false,
         debug: process.env.NODE_ENV === 'development',
         pages: Global.pages,
+        shutterTimeline: null,
+        swiperStyle: '',
+        swiper: null,
+        swiperBackground: null,
       };
     },
     mounted() {
-      this.timeline = this.createTimeline();
+      // this.timeline = this.createTimeline()
+      this.createSutterTimeline();
+      this.initSwiper();
     },
     onEnter(resolve) {
+      console.log('onEnter');
       const timeline = new TimelineMax({
         onComplete: () => {
           resolve();
@@ -28,6 +38,27 @@
       return timeline;
     },
     methods: {
+      createSutterTimeline() {
+        console.log('this.$refs.Shutter', this.$refs.Shutter);
+
+        this.shutterTimeline = new TimelineMax({
+          paused: true,
+        })
+          .add('open')
+          // .to(this.$refs.Shutter, 0.6, {
+          //   scale: 0.8,
+          //   ease: Power4.easeOut,
+          // }, 'open')
+          .to(this.$refs.Image, 0.6, {
+            scale: 0.4,
+            ease: Power2.easeOut,
+          }, 'open')
+          // .to(this.$el, 0.6, {
+          //   // color: 0.8,
+          //   ease: Expo.easeOut,
+          // }, 'open')
+          .add('close');
+      },
       createTimeline() {
         const timeline = new TimelineMax({});
         timeline.add('start', 0);
@@ -52,27 +83,81 @@
 
         return timeline;
       },
+
+      initSwiper() {
+        const debouncing = 0;
+        const close = debounce(() => {
+          if (!this.touch) return;
+          this.shutterTimeline.tweenTo('close');
+        }, debouncing);
+        const open = debounce(() => {
+          if (this.touch) return;
+          this.shutterTimeline.tweenTo('open');
+        }, debouncing);
+        this.swiperBackground = new Swiper(this.$refs.Backgrounds);
+        this.swiper = new Swiper(this.$refs.Content)
+          .on('setTranslate', () => {
+            this.swiperStyle = this.$refs.ContentWrapper.getAttribute('style');
+          })
+          .on('touchStart', () => {
+            this.touch = true;
+            close();
+          })
+          .on('touchEnd', () => {
+            this.touch = false;
+            open();
+          })
+          .on('slideChangeTransitionEnd', () => {
+            this.shutterTimeline.tweenTo('open');
+          });
+      },
+      next() {
+        this.shutterTimeline.tweenTo('close', {
+          onComplete: this.swiper.slideNext.bind(this.swiper, 600),
+        });
+      },
+      prev() {
+        this.shutterTimeline.tweenTo('close', {
+          onComplete: this.swiper.slidePrev.bind(this.swiper, 600),
+        });
+      },
     },
   };
 </script>
 
 <template>
-  <div :class="['HomePage', {'is-debug': debug}]">
+  <div :class="['HomePage', 'swiper-container', {'is-debug': debug}]">
+
     <!-- {{ $t('general.test') }} -->
-    <ul class="pages">
-      <li v-for="(page, id) in pages"
-        v-if="page.background"
-        :key="'page-'+id"
-        :ref="'Page'"
-        :class="['Page', '-'+id, {'is-current': id === 'home'}]">
-        <header class="Header">
-          <h1 class="Title" v-text="id"></h1>
-        </header>
-        <pre>{{page}}</pre>
-        <div class="Background"
-          :style="{backgroundImage: 'url('+page.background+')'}"></div>
-      </li>
-    </ul>
+    <div ref="Content" class="Content swiper-container">
+      <ul ref="ContentWrapper" class="swiper-wrapper">
+        <li v-for="(page, id) in pages"
+          v-if="page.background"
+          :key="'page-'+id"
+          :ref="'Page'"
+          :class="['Page', '-'+id, 'swiper-slide', {'is-current': id === 'home'}]">
+          <header class="Header">
+            <h1 class="Title" v-text="id"></h1>
+          </header>
+          <!-- <pre>{{page}}</pre> -->
+        </li>
+      </ul>
+    </div>
+    <div ref="Backgrounds" class="Backgrounds swiper-container">
+      <ul class="swiper-wrapper" :style="swiperStyle">
+        <li v-for="(page, id) in pages"
+          v-if="page.background"
+          :key="'Background-'+id"
+          :class="['Background', '-'+id, 'swiper-slide', {'is-current': id === 'home'}]">
+          <div :ref="'Image'" class="Image" :style="{backgroundImage: 'url('+page.background+')'}"></div>
+        </li>
+      </ul>
+    </div>
+
+    <div ref="SwiperPrev" class="swiper-button-prev" @click="prev"></div>
+    <div ref="SwiperNext" class="swiper-button-next" @click="next"></div>
+    <!-- <div class="swiper-scrollbar"></div> -->
+    <div ref="Shutter" class="Shutter"></div>
   </div>
 </template>
 
@@ -88,6 +173,36 @@
   */
 
   //  ===LAYOUT===
+  .Backgrounds
+    absolute 0
+    size 100%
+    z-index 1
+    .swiper-wrapper
+      transition-duration .4s !important
+    .Background
+      overflow hidden
+      size 100%
+
+  .Image
+    absolute -100px
+    background-repeat: no-repeat
+    background-size cover
+    background-position center center
+
+  .Shutter
+    borderSize = 1000px
+    absolute -(borderSize + 2)
+    border borderSize solid c-white
+    z-index 2
+    box-sizing content-box
+    pointer-events none
+    // transform scale(.5)
+
+  .Content
+    absolute 0
+    size 100%
+    overflow hidden
+    z-index 10
 </style>
 
 
@@ -96,27 +211,19 @@
   .HomePage
     size 100vw 100vh
 
-  .Page
-    absolute 0
-    overflow hidden
-    &:not(.is-current)
-      transform translateX(100%)
-
-  .Background
-    absolute -100px
-    background-repeat: no-repeat
-    background-size cover
-    background-position center center
 
   .Header
-    position relative
+    relative 70%  false false 10%
     z-index: 2
 
   .Title
     color c-white
-    font-size 10rem
+    font-size fz-title
     text-transform uppercase
-    padding 1em
+    // padding .1em
+    font-family ff-bold
+    -webkit-text-stroke: 1px rgba(c-black, .4);
+    z-index 10
 
   //  ===DEBUG===
   .HomePage.is_debug

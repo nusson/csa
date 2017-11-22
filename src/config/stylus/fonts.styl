@@ -13,14 +13,15 @@
 
 /* ===FONT_FAMILLY=== */
   ff-safe = Arial, Helvetica, sans-serif
-  ff-bold = sans-serif, Arial, Helvetica, sans-serif
+  ff-bold = IBMPlexBold, sans-serif, Arial, Helvetica, sans-serif
   ff-medium = monospace, Arial, Helvetica, sans-serif
   ff-regular = /*YOUR_FONT_Regular,*/ Arial, Helvetica, sans-serif
   ff-light = monospace, Arial, Helvetica, sans-serif
 
 /* ===FONT_SIZE=== */
   // 1rem = 10px
-  fz-title        = 8rem
+  fz-extra        = 8rem
+  fz-title        = 6rem
   fz-small-title  = 6rem
   fz-subtitle     = 5rem
   fz-highlight    = 3rem
@@ -63,12 +64,22 @@
       font-family ff-safe
 
   font-url(file)
-    return '~commons/fonts/fonts/' + file
+    return '~src/assets/fonts/' + file
 
   webfont(family, file, weight = 400)
     @font-face
       font-family family
-      src: url(font-url(file + '.woff')) format('woff')
+      src:  url(font-url(file + '.eot')) format('eot'),
+            url(font-url(file + '.woff')) format('woff'),
+            url(font-url(file + '.woff2')) format('woff2'),
+            url(font-url(file + '.ttf')) format('truetype');
+      font-weight weight
+      font-style normal
+
+  webfontNoWoff(family, file, weight = 400)
+    @font-face
+      font-family family
+      src: url(font-url(file + '.ttf')) format('truetype');
       font-weight weight
       font-style normal
 
