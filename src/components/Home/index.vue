@@ -101,21 +101,36 @@
             });
           })
           .on('touchStart', () => {
+            if (this.touch) {
+              return;
+            }
             this.touch = true;
             this.blury = true;
             this.shutterTimeline.tweenTo('close', {
               ease: Power2.easeOut,
             });
+            console.log('touchStart');
           })
           .on('touchEnd', () => {
             this.touch = false;
             this.blury = false;
-            this.shutterTimeline.tweenTo('open', {
-              ease: Power2.easeOut,
-              delay: 0.6,
-            });
+            setTimeout(() => {
+              if (this.touch) {
+                return;
+              }
+              this.shutterTimeline.tweenTo('open', {
+                ease: Power2.easeOut,
+                // delay: 0.6,
+              });
+              console.log('touchEnd');
+            }, 600);
           })
           .on('slideChangeTransitionEnd', () => {
+            if (this.touch) {
+              return;
+            }
+            console.log('slideChangeTransitionEnd');
+
             this.shutterTimeline.tweenTo('open', {
               ease: Power2.easeOut,
               delay: 0.0,
