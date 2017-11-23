@@ -2,7 +2,7 @@
   import { debounce, keys } from 'lodash';
   import Swiper from 'src/vendors/swiper';
   import Global from 'datas/Global';
-  import { TimelineMax, TweenMax, Power4, Expo, Power2 } from 'gsap';
+  import { TimelineMax, TweenMax, Power4, Expo, Power2, SlowMo } from 'gsap';
 
   /** > The homepage
    *
@@ -94,6 +94,8 @@
           centeredSlides: true,
         })
           .on('setTranslate', () => {
+            console.log('setTranslate');
+
             this.$nextTick(() => {
               this.swiperStyle = {
                 transform: `translateX(${-this.swiper.activeIndex * 100}%)`,
@@ -235,6 +237,13 @@
   //  ===LAYOUT===
   .HomePage
     background: c-black
+    position relative
+    &:before
+      // content ''
+      absolute 0 0 0 50%
+      background rgba(red, .6)
+      z-index 2000
+      pointer-events none
 
   .Backgrounds
     absolute 0
@@ -273,30 +282,38 @@
     z-index 10
     display flex
     justify-content center
-    align-items center
+    justify-content flex-start
+    // width 200%
+    // transform translateX(-20vw) !important
+    // transform translateX(-50%)
 
     .swiper-wrapper
       display flex
-      // justify-content center
-      align-items center
+      justify-content center
+      justify-content space-between
+      align-items flex-end
+      // margin-left -20%
 
   .Page
     size auto
-    margin 0 5em 0 0
+    margin 0 2em
     flex-grow 1
     display inline-block
+    padding-bottom 20vh
 
   .Content
     position relative
     height 100%
-
-
     .Page
       transition all .4s easing('in-quad')
       &.is-prev
         transform translateX(-25vw)
       &.is-next
         transform translateX(25vw)
+      &.is-current
+        .Title
+          color c-white
+          transition color 0.4s easing('out-expo')
     &.is-blury .Page
       transform translateX(0) !important
       transition all 0.6s easing('out-quad')
@@ -327,13 +344,15 @@
 
   .Title
     color c-white
+    color red
     font-size fz-title
     text-transform uppercase
     // padding .1em
     font-family ff-bold
     // -webkit-text-stroke: 1px rgba(c-black, .4);
     z-index 10
-
+    transition color 0.4s easing('in-quad')
+    text-align center
   //  ===DEBUG===
   .HomePage.is_debug
     //
