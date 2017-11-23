@@ -2,7 +2,7 @@
   import { debounce } from 'lodash';
   import Swiper from 'src/vendors/swiper';
   import Global from 'datas/Global';
-  import { TimelineMax, TweenMax, Power4, Expo } from 'gsap';
+  import { TimelineMax, TweenMax, Power4, Expo, Power2 } from 'gsap';
 
   /** > The homepage
    *
@@ -15,6 +15,8 @@
     data() {
       return {
         touch: false,
+        blury: false,
+        currentIndex: 0,
         debug: process.env.NODE_ENV === 'development',
         pages: Global.pages,
         shutterTimeline: null,
@@ -51,7 +53,7 @@
           // }, 'open')
           .to(this.$refs.Image, 0.6, {
             scale: 0.4,
-            ease: Power2.easeOut,
+            // ease: Power2.easeOut,
           }, 'open')
           // .to(this.$el, 0.6, {
           //   // color: 0.8,
@@ -85,30 +87,42 @@
       },
 
       initSwiper() {
-        const debouncing = 0;
-        const close = debounce(() => {
-          if (!this.touch) return;
-          this.shutterTimeline.tweenTo('close');
-        }, debouncing);
-        const open = debounce(() => {
-          if (this.touch) return;
-          this.shutterTimeline.tweenTo('open');
-        }, debouncing);
         this.swiperBackground = new Swiper(this.$refs.Backgrounds);
-        this.swiper = new Swiper(this.$refs.Content)
+
+        this.swiper = new Swiper(this.$refs.Content, {
+          slidesPerView: 'auto',
+          centeredSlides: true,
+        })
           .on('setTranslate', () => {
-            this.swiperStyle = this.$refs.ContentWrapper.getAttribute('style');
+            this.$nextTick(() => {
+              this.swiperStyle = {
+                transform: `translateX(${-this.swiper.activeIndex * 100}%)`,
+              };
+            });
           })
           .on('touchStart', () => {
             this.touch = true;
-            close();
+            this.blury = true;
+            this.shutterTimeline.tweenTo('close', {
+              ease: Power2.easeOut,
+            });
           })
           .on('touchEnd', () => {
             this.touch = false;
-            open();
+            this.blury = false;
+            this.shutterTimeline.tweenTo('open', {
+              ease: Power2.easeOut,
+              delay: 0.6,
+            });
           })
           .on('slideChangeTransitionEnd', () => {
-            this.shutterTimeline.tweenTo('open');
+            this.shutterTimeline.tweenTo('open', {
+              ease: Power2.easeOut,
+              delay: 0.0,
+            });
+          })
+          .on('slideChange', () => {
+            this.currentIndex = this.swiper.realIndex;
           });
       },
       next() {
@@ -129,14 +143,25 @@
   <div :class="['HomePage', 'swiper-container', {'is-debug': debug}]">
 
     <!-- {{ $t('general.test') }} -->
-    <div ref="Content" class="Content swiper-container">
+    <div ref="Content"
+      :class="[
+        'Content',
+        'swiper-container',
+        {'is-blury': blury},
+        {'touch': touch},
+      ]">
       <ul ref="ContentWrapper" class="swiper-wrapper">
         <li v-for="(page, id) in pages"
           v-if="page.background"
           :key="'page-'+id"
           :ref="'Page'"
-          :class="['Page', '-'+id, 'swiper-slide', {'is-current': id === 'home'}]">
+          :class="['Page', '-'+id, 'swiper-slide',
+          {'is-current': currentIndex === Object.keys(pages).indexOf(id)},
+          {'is-next': currentIndex < Object.keys(pages).indexOf(id)},
+          {'is-prev': currentIndex > Object.keys(pages).indexOf(id)}
+        ]">
           <header class="Header">
+            {{Object.keys(pages).indexOf(id)}} {{id}} {{currentIndex}}
             <h1 class="Title" v-text="id"></h1>
           </header>
           <!-- <pre>{{page}}</pre> -->
@@ -148,7 +173,12 @@
         <li v-for="(page, id) in pages"
           v-if="page.background"
           :key="'Background-'+id"
-          :class="['Background', '-'+id, 'swiper-slide', {'is-current': id === 'home'}]">
+          :class="[
+            'Background',
+            '-'+id,
+            'swiper-slide',
+            {'is-current': id === currentIndex}
+          ]">
           <div :ref="'Image'" class="Image" :style="{backgroundImage: 'url('+page.background+')'}"></div>
         </li>
       </ul>
@@ -173,12 +203,16 @@
   */
 
   //  ===LAYOUT===
+  .HomePage
+    background: c-black
+
   .Backgrounds
     absolute 0
     size 100%
     z-index 1
     .swiper-wrapper
-      transition-duration .4s !important
+      transition-duration 0.6s !important
+      transition-timing-function easing('out-quad') !important
     .Background
       overflow hidden
       size 100%
@@ -198,11 +232,55 @@
     pointer-events none
     // transform scale(.5)
 
+  // .Content
+  //   absolute 0
+  //   size 100%
+  //   overflow hidden
+  //   z-index 10
   .Content
-    absolute 0
-    size 100%
-    overflow hidden
+    position relative
     z-index 10
+    display flex
+    justify-content center
+    align-items center
+
+    .swiper-wrapper
+      display flex
+      // justify-content center
+      align-items center
+
+  .Page
+    size auto
+    margin 0 5em 0 0
+    flex-grow 1
+    display inline-block
+
+  .Content
+    position relative
+    height 100%
+
+
+    .Page
+      transition all .4s easing('in-quad')
+      &.is-prev
+        transform translateX(-25vw)
+      &.is-next
+        transform translateX(25vw)
+    &.is-blury .Page
+      transform translateX(0) !important
+      transition all 0.6s easing('out-quad')
+    // &:not(.is-blury) .Page:not(.is-current)
+      // opacity 0
+    &:not(.touch) .Page
+      // transition all .6s easing('out-expo')
+      &.is-current
+        transition all .4s easing('out-quad')
+      &:not(.is-current)
+        opacity 0
+        &.is-prev
+          transform translateX(-30vw)
+        &.is-next
+          transform translateX(30vw)
 </style>
 
 
@@ -213,7 +291,7 @@
 
 
   .Header
-    relative 70%  false false 10%
+    // relative 70%  false false 10%
     z-index: 2
 
   .Title
@@ -222,7 +300,7 @@
     text-transform uppercase
     // padding .1em
     font-family ff-bold
-    -webkit-text-stroke: 1px rgba(c-black, .4);
+    // -webkit-text-stroke: 1px rgba(c-black, .4);
     z-index 10
 
   //  ===DEBUG===
