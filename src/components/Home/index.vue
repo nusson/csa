@@ -1,5 +1,5 @@
 <script>
-  import { debounce } from 'lodash';
+  import { debounce, keys } from 'lodash';
   import Swiper from 'src/vendors/swiper';
   import Global from 'datas/Global';
   import { TimelineMax, TweenMax, Power4, Expo, Power2 } from 'gsap';
@@ -53,7 +53,7 @@
           // }, 'open')
           .to(this.$refs.Image, 0.6, {
             scale: 0.4,
-            // ease: Power2.easeOut,
+            ease: Power2.easeInOut,
           }, 'open')
           // .to(this.$el, 0.6, {
           //   // color: 0.8,
@@ -132,7 +132,7 @@
             console.log('slideChangeTransitionEnd');
 
             this.shutterTimeline.tweenTo('open', {
-              ease: Power2.easeOut,
+              // ease: Power2.easeInOut,
               delay: 0.0,
             });
           })
@@ -141,14 +141,28 @@
           });
       },
       next() {
+        console.log(this.currentIndex, keys(this.pages).length);
+
+        if (this.currentIndex >= keys(this.pages).length - 1) {
+          return;
+        }
         this.shutterTimeline.tweenTo('close', {
-          onComplete: this.swiper.slideNext.bind(this.swiper, 600),
+          ease: SlowMo.ease.config(0.9, 0.2, false),
         });
+        setTimeout(() => {
+          this.swiper.slideNext(600);
+        }, 500);
       },
       prev() {
+        if (this.currentIndex <= 0) {
+          return;
+        }
         this.shutterTimeline.tweenTo('close', {
-          onComplete: this.swiper.slidePrev.bind(this.swiper, 600),
+          ease: SlowMo.ease.config(0.9, 0.2, false),
         });
+        setTimeout(() => {
+          this.swiper.slidePrev(600);
+        }, 500);
       },
     },
   };
@@ -184,7 +198,8 @@
       </ul>
     </div>
     <div ref="Backgrounds" class="Backgrounds swiper-container">
-      <ul class="swiper-wrapper" :style="swiperStyle">
+      <ul class="swiper-wrapper" :style="swiperStyle"
+    :class="{'touch': touch}">
         <li v-for="(page, id) in pages"
           v-if="page.background"
           :key="'Background-'+id"
@@ -228,6 +243,7 @@
     .swiper-wrapper
       transition-duration 0.6s !important
       transition-timing-function easing('out-quad') !important
+      // &.touch
     .Background
       overflow hidden
       size 100%
