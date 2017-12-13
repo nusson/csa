@@ -29,6 +29,8 @@
       // this.timeline = this.createTimeline()
       this.createSutterTimeline();
       this.initSwiper();
+
+      this.startScale();
     },
     onEnter(resolve) {
       console.log('onEnter');
@@ -47,43 +49,33 @@
           paused: true,
         })
           .add('open')
-          // .to(this.$refs.Shutter, 0.6, {
-          //   scale: 0.8,
-          //   ease: Power4.easeOut,
-          // }, 'open')
-          .to(this.$refs.Image, 0.6, {
-            scale: 0.4,
+
+          // close shutter arround image
+          .to(this.$refs.Shutter, 0.6, {
+            scale: 0.8,
+            ease: Power4.easeInOut,
+          }, 'open')
+
+          // steel full pin pic
+          .fromTo(this.$refs.ImageWrapper, 0.6, { scale: 1.1 }, {
+            scale: 1,
             ease: Power2.easeInOut,
           }, 'open')
-          // .to(this.$el, 0.6, {
-          //   // color: 0.8,
-          //   ease: Expo.easeOut,
+
+          // make small square of picture (work best without shutter)
+          // .fromTo(this.$refs.ImageWrapper, 0.6, { scale: 1 }, {
+          //   scale: 0.8,
+          //   ease: Power2.easeInOut,
           // }, 'open')
           .add('close');
       },
-      createTimeline() {
-        const timeline = new TimelineMax({});
-        timeline.add('start', 0);
-        timeline.add(
-          TweenMax.fromTo(this.$el, 5, {
-            opacity: 0,
-          }, {
-            opacity: 1,
-            ease: Power4.easeInOut,
-          }), 'start',
-        );
-        timeline.add(
-          TweenMax.fromTo(this.$el.querySelector('.Background'), 50, {
-            x: 100,
-            scale: 1,
-          }, {
-            x: -100,
-            ease: Expo.easeOut,
-            scale: 2,
-          }), 'start',
-        );
 
-        return timeline;
+      startScale() {
+        TweenMax.to(this.$refs.Image, 66, { scale: 1.2 });
+      },
+
+      stopScale() {
+        TweenMax.to(this.$refs.Image, 2, { scale: 1 });
       },
 
       initSwiper() {
@@ -108,6 +100,7 @@
             }
             this.touch = true;
             this.blury = true;
+            this.stopScale();
             this.shutterTimeline.tweenTo('close', {
               ease: Power2.easeOut,
             });
@@ -120,12 +113,19 @@
               if (this.touch) {
                 return;
               }
+              this.startScale();
               this.shutterTimeline.tweenTo('open', {
                 ease: Power2.easeOut,
                 // delay: 0.6,
+                onComplete: () => {
+                },
               });
               console.log('touchEnd');
             }, 600);
+          })
+          .on('slideChangeTransitionStart', () => {
+            this.stopScale();
+            console.log('slideChangeTransitionStart');
           })
           .on('slideChangeTransitionEnd', () => {
             if (this.touch) {
@@ -137,6 +137,7 @@
               // ease: Power2.easeInOut,
               delay: 0.0,
             });
+            this.startScale();
           })
           .on('slideChange', () => {
             this.currentIndex = this.swiper.realIndex;
@@ -211,7 +212,9 @@
             'swiper-slide',
             {'is-current': id === currentIndex}
           ]">
-          <div :ref="'Image'" class="Image" :style="{backgroundImage: 'url('+page.background+')'}"></div>
+          <div ref="ImageWrapper" class="ImageWrapper">
+            <div ref="Image" class="Image" :style="{backgroundImage: 'url('+page.background+')'}"></div>
+          </div>
         </li>
       </ul>
     </div>
@@ -257,11 +260,13 @@
       overflow hidden
       size 100%
 
-  .Image
-    absolute -100px
-    background-repeat: no-repeat
-    background-size cover
-    background-position center center
+  .ImageWrapper
+    absolute 0
+    .Image
+      absolute 0
+      background-repeat: no-repeat
+      background-size cover
+      background-position center center
 
   .Shutter
     borderSize = 1000px
@@ -316,7 +321,7 @@
           transition color 0.4s easing('out-expo')
     &.is-blury .Page
       transform translateX(0) !important
-      transition all 0.6s easing('out-quad')
+      transition all 0.6s easing('out-quad') .2s
     // &:not(.is-blury) .Page:not(.is-current)
       // opacity 0
     &:not(.touch) .Page
