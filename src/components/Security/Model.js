@@ -20,12 +20,12 @@ export const BuilderLayouts = {
 };
 
 export default class SecurityPageModel {
-  construct() {
+  constructor() {
     this.datas = {
       builder: [
         {
           type: BuilderTypes.quote,
-          data: {
+          content: {
             fr: {
               content: 'At the end of the day, the goals are simple: safety and security',
               author: 'Jodi Rell',
@@ -35,7 +35,7 @@ export default class SecurityPageModel {
         },
         {
           type: BuilderTypes.layout,
-          layout: 'section',
+          layout: BuilderLayouts.section,
           content: [
             {
               type: BuilderTypes.title,
@@ -48,7 +48,7 @@ export default class SecurityPageModel {
         },
         {
           type: BuilderTypes.layout,
-          layout: 'section',
+          layout: BuilderLayouts.section,
           content: [
             {
               type: BuilderTypes.title,
@@ -57,11 +57,19 @@ export default class SecurityPageModel {
                 en: 'Codes d’étique',
               },
             },
+            {
+              type: BuilderTypes.title,
+              tag: 'h2',
+              content: {
+                fr: 'Choisir ses Arbres',
+                en: 'Choisir ses Arbres',
+              },
+            },
           ],
         },
         {
           type: BuilderTypes.layout,
-          layout: 'section',
+          layout: BuilderLayouts.section,
           content: [
             {
               type: BuilderTypes.title,
@@ -74,7 +82,7 @@ export default class SecurityPageModel {
         },
         {
           type: BuilderTypes.layout,
-          layout: 'section',
+          layout: BuilderLayouts.section,
           content: [
             {
               type: BuilderTypes.title,
@@ -101,7 +109,7 @@ export default class SecurityPageModel {
         },
         {
           type: BuilderTypes.layout,
-          layout: 'section',
+          layout: BuilderLayouts.section,
           content: [
             {
               type: BuilderTypes.title,
@@ -188,5 +196,8 @@ export default class SecurityPageModel {
         },
       ],
     };
+  }
+  get builder() {
+    return this.datas.builder;
   }
 }

@@ -3,6 +3,7 @@
    *
    * @author Nicolas Husson <hello@nusson.ninja>
    */
+
   export default {
     name: 'BuilderQuote',
     components: { },
@@ -18,6 +19,9 @@
       };
     },
     watch: { },
+    mounted() {
+      console.log('quote', this.$i18n);
+    },
     methods: {
 
     },
@@ -28,14 +32,14 @@
   <div
     v-if="model"
     :class="['BuilderQuote', {'is-debug': debug}]">
-    <bloququote class="Quote">
+    <blockquote class="Quote">
       <p
         class="content"
         v-html="model.content" />
       <footer
         class="author"
-        v-html="model.author" />>
-    </bloququote>
+        v-html="model.author" />
+    </blockquote>
     <p
       class="BackgroundText"
       v-html="model.alt" />

@@ -53,7 +53,7 @@ const Global = {
       route: {
         en: '/community',
         fr: '/communaute',
-        component: asyncRequire('Home'),
+        component: asyncRequire('Community'),
       },
       background: require('@/assets/_ignore/images/st-anne-queue-saisoniere.jpg'),
       // background: require('@/assets/_ignore/images/st-anne-vlad-felix.jpg'),
@@ -136,6 +136,19 @@ const Global = {
           },
         },
       },
+    },
+    /* Security = 1 page + details + filtres
+     * - Rassurer
+     * - Ethic code
+     * - Advanced (accident repports, etc)
+     */
+    security: {
+      route: {
+        en: '/security',
+        fr: '/securite',
+        component: asyncRequire('Security/Page'),
+      },
+      background: require('@/assets/_ignore/images/gear-porn.jpg'),
     },
     /* À propos 1 page
      * - Organisation

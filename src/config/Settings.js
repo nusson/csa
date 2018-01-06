@@ -18,6 +18,7 @@ const Settings = {
   prefixRoute: true, // prefix route with locale
   API_PREFIX: 'api',
   BASE_URL: 'csa.int',
+  GOOGLE_MAP_API_KEY: 'AIzaSyC9SuH_rdXVIn1oO4MMaORvaFph9d6p2nY',
 };
 
 // if (typeof (window) !== 'undefined') {

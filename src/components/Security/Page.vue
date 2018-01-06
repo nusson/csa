@@ -1,4 +1,5 @@
 <script>
+import { AppPageBuilder } from 'components/Builder';
 import SecurityPageModel from './Model';
 /** >
  *
@@ -6,7 +7,7 @@ import SecurityPageModel from './Model';
  */
 export default {
   name: 'SecurityPage',
-  components: { },
+  components: { AppPageBuilder },
   i18n: { // `i18n` option
     messages: {
       en: {
@@ -24,6 +25,9 @@ export default {
     };
   },
   watch: { },
+  mounted() {
+    console.log('builder', this.model);
+  },
   methods: {
 
   },
@@ -37,7 +41,7 @@ export default {
     </header>
     <AppPageBuilder
       class="Content -builder"
-      :model="this.builder" />
+      :model="model.builder" />
   </article>
 </template>
 

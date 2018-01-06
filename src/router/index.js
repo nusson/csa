@@ -32,7 +32,6 @@ function mapRoutes(pages) {
     const prefix = (Settings.prefixRoute) ? `/${lang}` : '';
 
     const routes = filter(pages, 'route');
-    console.log(routes);
     return flatten(map(routes, (page, id) => {
       const route = getRoute(page, { prefix, lang, id });
 
