@@ -47,12 +47,12 @@
           paused: true,
         })
           .add('open')
-          // .to(this.$refs.Shutter, 0.6, {
-          //   scale: 0.8,
-          //   ease: Power4.easeOut,
-          // }, 'open')
-          .to(this.$refs.Image, 0.6, {
-            scale: 0.4,
+          .to(this.$refs.Shutter, 0.6, {
+            scale: 0.8,
+            ease: Power4.easeOut,
+          }, 'open')
+          .fromTo(this.$refs.Image, 0.6, { scale: 1.1 }, {
+            scale: 1,
             ease: Power2.easeInOut,
           }, 'open')
           // .to(this.$el, 0.6, {
