@@ -41,8 +41,6 @@ export default {
   },
   watch: {
     location(location) {
-      console.log('location', location, this.map);
-
       if (!this.map) {
         return;
       }
