@@ -26,12 +26,13 @@ function asyncRequire(name, type = 'component') {
   Événements/Savoir faire/Impliquez-vous/à propos/ contact
 */
 const Global = {
-  pages: {
+  pages: [
     /* Homepage
      * Maybe just a nive introduction video
      * then this whole page is a swiper that'll fit in a page header
      */
-    home: {
+    {
+      id: 'home',
       route: {
         en: '/',
         fr: '/',
@@ -49,7 +50,8 @@ const Global = {
      *  - Rapports de comportement des fonctionnaires
      *  - Liens
      */
-    community: {
+    {
+      id: 'community',
       route: {
         en: '/community',
         fr: '/communaute',
@@ -64,7 +66,8 @@ const Global = {
      * - Entrainement
      * - Calendrier
      */
-    events: {
+    {
+      id: 'events',
       route: {
         en: '/events',
         fr: '/evenements',
@@ -78,7 +81,8 @@ const Global = {
      * - Savoir avancé
      * - Impliquez-vous
      */
-    expertise: {
+    {
+      id: 'expertise',
       route: {
         en: '/expertise/',
         fr: '/savoir-faire/',
@@ -86,63 +90,64 @@ const Global = {
       },
       background: require('@/assets/_ignore/images/highline-dark-sky.jpg'),
       // background: require('@/assets/_ignore/images/st-anne-vlad-felix.jpg'),
-      children: {
-        /* Les bases
-         * - Les variances du sport
-         * - Les principes fondamentales
-         * - Protection d’arbre
-         * - Sécurité
-        */
-        basics: {
-          route: {
-            en: 'basics',
-            fr: 'les-bases',
-            component: asyncRequire('KnowHow'),
-          },
-        },
-        /* disciplines
-         * - Rodéoline
-         * - Waterline
-         * - Longline
-         * - Highline
-        */
-        disciplines: {
-          route: {
-            en: 'disciplines/:slug?',
-            fr: 'disciplines/:slug?',
-            component: asyncRequire('Disciplines'),
-          },
-        },
-        /* Savoir avancé
-         * - Comparaison des matériaux
-         * - Concevoir du matériel
-         */
-        advanced: {
-          route: {
-            en: 'advanced',
-            fr: 'avance',
-            component: asyncRequire('KnowHow'),
-          },
-        },
-        /* Impliquez - vous
-        * - Devenir membre
-        * - Shop online
-        */
-        involve: {
-          route: {
-            en: 'advanced',
-            fr: 'avance',
-            component: asyncRequire('KnowHow'),
-          },
-        },
-      },
+      // children: {
+      //   /* Les bases
+      //    * - Les variances du sport
+      //    * - Les principes fondamentales
+      //    * - Protection d’arbre
+      //    * - Sécurité
+      //   */
+      //   basics: {
+      //     route: {
+      //       en: 'basics',
+      //       fr: 'les-bases',
+      //       component: asyncRequire('KnowHow'),
+      //     },
+      //   },
+      //   /* disciplines
+      //    * - Rodéoline
+      //    * - Waterline
+      //    * - Longline
+      //    * - Highline
+      //   */
+      //   disciplines: {
+      //     route: {
+      //       en: 'disciplines/:slug?',
+      //       fr: 'disciplines/:slug?',
+      //       component: asyncRequire('Disciplines'),
+      //     },
+      //   },
+      //   /* Savoir avancé
+      //    * - Comparaison des matériaux
+      //    * - Concevoir du matériel
+      //    */
+      //   advanced: {
+      //     route: {
+      //       en: 'advanced',
+      //       fr: 'avance',
+      //       component: asyncRequire('KnowHow'),
+      //     },
+      //   },
+      //   /* Impliquez - vous
+      //   * - Devenir membre
+      //   * - Shop online
+      //   */
+      //   involve: {
+      //     route: {
+      //       en: 'advanced',
+      //       fr: 'avance',
+      //       component: asyncRequire('KnowHow'),
+      //     },
+      //   },
+      // },
     },
     /* Security = 1 page + details + filtres
      * - Rassurer
      * - Ethic code
      * - Advanced (accident repports, etc)
      */
-    security: {
+    {
+      id: 'security',
       route: {
         en: '/security',
         fr: '/securite',
@@ -156,14 +161,16 @@ const Global = {
      * - Missions
      * - Partenaire
      */
-    about: {
+    {
+      id: 'about',
       background: require('@/assets/_ignore/images/big-bag.jpg'),
     },
     /* Contact */
-    contact: {
+    {
+      id: 'contact',
       background: require('@/assets/_ignore/images/team.jpg'),
     },
-  },
+  ],
 };
 
 export default Global;

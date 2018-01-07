@@ -22,6 +22,10 @@ export default {
       from: route,
       to: route,
     },
+    viewport: {
+      width: 0,
+      height: 0,
+    },
   },
   mutations: {
     SET_FROM_ROUTE(state, from) {
@@ -49,10 +53,24 @@ export default {
         console.log('SET_LANG error', error);// eslint-disable-line
       }
     },
+    /** update viewport size */
+    UPDATE_VIEWPORT(state, { width, height }) {
+      state.viewport = { width, height };
+    },
+  },
+  actions: {
+    RESIZE({ commit }, event) {
+      const {
+        innerWidth: width,
+        innerHeight: height,
+      } = window;
+      commit('UPDATE_VIEWPORT', { width, height });
+    },
   },
   getters: {
     lang: state => state.lang,
     mode: state => state.mode,
     route: state => state.route,
+    viewport: state => state.viewport,
   },
 };

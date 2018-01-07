@@ -8,8 +8,7 @@
 
 <script>
 import GoogleMap from 'assets/js/GoogleMaps';
-
-console.log('GoogleMap', GoogleMap);
+import { mapGetters } from 'vuex';
 
 
 export default {
@@ -36,6 +35,9 @@ export default {
         zoom: this.zoom,
       };
     },
+    ...mapGetters({
+      viewport: 'App/viewport',
+    }),
   },
   watch: {
     location(location) {
@@ -70,7 +72,11 @@ export default {
   <div :class="['ComunityMap', {'is-debug': debug}]">
     <div
       ref="Map"
-      class="Map" />
+      class="Map"
+      :style="{
+        width: viewport.width+'px',
+        height: viewport.height+'px',
+      }"/>
   </div>
 </template>
 

@@ -1,4 +1,6 @@
 <script>
+  import { throttle } from 'lodash';
+  import TheMenu from 'components/TheMenu';
   import 'assets/stylus/index.styl';
 
   /** > Our entry point
@@ -7,14 +9,28 @@
    */
   export default {
     name: 'App',
-    components: { },
+    components: { TheMenu },
     props: { },
     data() {
       return {
         debug: process.env.NODE_ENV === 'development',
+        loaded: false,
+        handlers: {
+          resize: throttle(function (event) { // eslint-disable-line func-names
+            this.$store.dispatch('App/RESIZE', event);
+          }, 250),
+        },
       };
     },
-    watch: { },
+    watch: {
+      $route(route) {
+        this.loaded = true;
+      },
+    },
+    mounted() {
+      window.addEventListener('resize', this.handlers.resize.bind(this));
+      this.handlers.resize.bind(this)();
+    },
     methods: {
 
     },
@@ -25,7 +41,11 @@
   <div :class="['App', {'is-debug': debug}]">
 
     <main>
-      <router-view ref="page"></router-view>
+      <template v-if="loaded">
+        <TheMenu />
+        <router-view ref="Page"></router-view>
+      </template>
+      <p v-else>LOADING</p>
     </main>
 
   </div>

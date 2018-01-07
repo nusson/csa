@@ -8,15 +8,16 @@ import store from '@/vuex/Store';
 
 Vue.use(Router);
 
-function getRoute(page, { id, lang, prefix = '' }) {
+function getRoute(page, { lang, prefix = '' }) {
   const route = get(page, `route.${lang}`);
   if (!route) { return null; }
+  // console.log('getRoute', id, lang, `${id}.${lang}`);
 
   return {
     path: prefix + route,
-    name: `${id}.${lang}`,
+    name: `${page.id}.${lang}`,
     meta: {
-      name: id,
+      name: page.id,
       lang,
     },
     component: get(page, 'route.component'),
@@ -32,8 +33,10 @@ function mapRoutes(pages) {
     const prefix = (Settings.prefixRoute) ? `/${lang}` : '';
 
     const routes = filter(pages, 'route');
-    return flatten(map(routes, (page, id) => {
-      const route = getRoute(page, { prefix, lang, id });
+    // console.log('prefix', lang, prefix, routes);
+    return flatten(map(routes, (page) => {
+      const route = getRoute(page, { prefix, lang });
+      // console.log('route : ', route);
 
       return [
         route,
