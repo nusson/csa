@@ -26,6 +26,8 @@ export default {
     },
     /** @augments {Object} zoom - smaller = more zoom */
     zoom: 8,
+    /** @augments {String} query - form search */
+    query: '',
   }),
   computed: {
     /** @augments {Object} options - GoogleMap options */
@@ -70,11 +72,23 @@ export default {
   <div :class="['ComunityMap', {'is-debug': debug}]">
     <div
       ref="Map"
-      class="Map"
-      :style="{
-        width: viewport.width+'px',
-        height: viewport.height+'px',
-      }"/>
+      class="Map"/>
+    <div class="ContentSection">
+      <form
+        class="SearchForm">
+        <div class="Field -search">
+          <label
+            class="SearchForm_query-label fa fa-search"
+            for="SearchForm_query"></label>
+          <input
+            id="SearchForm_query"
+            type="text"
+            name="q"
+            v-model="query">
+          <input type="submit" value=">">
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -95,7 +109,27 @@ export default {
 
   .Map
     position relative
-    size 500px
+    size 100%
+
+  .ContentSection
+    absolute 50% 100px false false
+    width 20%
+    max-width 300px
+    min-width 180px
+    transform translateY(-50%)
+    background-color white
+    padding 20px
+    border 20px solid black
+
+  .SearchForm
+    .Field
+      display flex
+      justify-content space-between
+      align-items center
+
+  .Card
+    // @todo
+
 
   //  ===DEBUG===
   .ComunityMap.is_debug

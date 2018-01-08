@@ -54,7 +54,7 @@ export default {
 
 <template>
   <div :class="['CommunityRecords', {'is-debug': debug}]">
-    <h2 v-html="$t('title')"></h2>
+    <h2 class="Title" v-html="$t('title')"></h2>
     <!-- <AppImage /> -->
     <img
       class="Image"
@@ -103,14 +103,26 @@ export default {
   c-black := #000
 
   //  ===LAYOUT===
+  .CommunityRecords
+    position relative
+
+    >.Title
+      color white
+      font-size 3rem
+      text-transform uppercase
+
   .Records
+    absolute 0 0 0 50%
     display flex
     justify-content stretch
     align-items stretch
     flex-wrap wrap
 
   .Card
-    border 1px solid c-black
+    border 1px solid white
+    color white
+    padding 40px
+    line-height 2
 
   //  ===DEBUG===
   .CommunityRecords.is_debug

@@ -2,6 +2,12 @@
   /** CommunityLinks
    * > List of usefull links
    *
+   * ## ideas
+   *
+   * maybe some grid of link
+   * easy yo play rollover for more infos etc
+   * and hopefully less boring that a list of links
+   *
    * @author Nicolas Husson <hello@nusson.ninja>
    */
 </doc>

@@ -64,6 +64,8 @@
   */
 
   //  ===LAYOUT===
+  .App
+    background-color black
 </style>
 
 
