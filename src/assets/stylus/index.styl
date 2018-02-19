@@ -6,9 +6,17 @@
  *
  */
 meyer-reset()
+@import './helpers'
 
 // webfont(IBMPlexBold, 'IBMPlexSans/IBMPlexSans-Bold', fw-bold)
+webfontNoWoff(IBMPlexLight, 'IBMPlexSans/IBMPlexSans-Light', fw-light)
+webfontNoWoff(IBMPlexRegular, 'IBMPlexSans/IBMPlexSans-Regular', fw-regular)
+webfontNoWoff(IBMPlexMedium, 'IBMPlexSans/IBMPlexSans-Medium', fw-medium)
 webfontNoWoff(IBMPlexBold, 'IBMPlexSans/IBMPlexSans-Bold', fw-bold)
+
+html
+  font(regular)
+  font-size 14px
 
 .PageHeader
   padding-top: 42vh

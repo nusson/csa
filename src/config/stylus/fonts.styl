@@ -14,54 +14,100 @@
 /* ===FONT_FAMILLY=== */
   ff-safe = Arial, Helvetica, sans-serif
   ff-bold = IBMPlexBold, sans-serif, Arial, Helvetica, sans-serif
-  ff-medium = monospace, Arial, Helvetica, sans-serif
-  ff-regular = /*YOUR_FONT_Regular,*/ Arial, Helvetica, sans-serif
-  ff-light = monospace, Arial, Helvetica, sans-serif
+  ff-medium = IBMPlexMedium, Arial, Helvetica, sans-serif
+  ff-regular = IBMPlexRegular Arial, Helvetica, sans-serif
+  ff-light = IBMPlexLight, Arial, Helvetica, sans-serif
 
 /* ===FONT_SIZE=== */
   // 1rem = 10px
-  fz-extra        = 8rem
-  fz-title        = 6rem
-  fz-small-title  = 6rem
-  fz-subtitle     = 5rem
-  fz-highlight    = 3rem
-  fz-normal       = 2rem
-  fz-small        = 1.6rem
-  fz-extra-small  = 1.4rem
+  // fz-extra        = 8rem
+  fz-h1           = 6rem
+  fz-h2           = 4rem
+  fz-h3           = 2rem
+  fz-h4           = 1.6rem
+  fz-h5           = 1.2rem
+  fz-h6           = 1rem
+  // fz-subtitle     = 5rem
+  // fz-highlight    = 3rem
+  fz-medium       = 1.2rem
+  fz-regular      = 1rem
+  // fz-small        = 0.8rem
+  // fz-extra-small  = 0.6rem
 
 /* ===FONT_WEIGHT=== */
-  fw-black    = 800
-  fw-bold     = 700
-  fw-semibold = 600
-  fw-medium   = 500
-  fw-regular  = 400
+  fw-bold       = 700
+  fw-medium     = 500
+  fw-regular    = 400
+  fw-light      = 300
+  // fw-black      = 900
+  // fw-extrabold  = 800
+  // fw-semibold   = 600
+  // fw-extralight = 200
+  // fw-thin       = 100
 
 /* ===LINE_HEIGHT=== */
+  lh-title  = 1.12
   lh-default  = 1.25
+  lh-text  = 1.6
 
 /* ===FONT_MIXIN=== */
 
+  font(type)
+    if type is 'regular'
+      font-family ff-regular
+      font-weight fw-regular
+      font-size fz-regular
+    if type is 'text'
+      font-family ff-regular
+      font-weight fw-regular
+      font-size fz-regular
+      line-height lh-text
+    if type is 'light'
+      font-family ff-light
+      font-weight fw-light
+    if type is 'title'
+      font-family ff-bold
+      font-weight fw-bold
+      line-height lh-title
+    if type is 'h1'
+      font-size fz-h1
+      margin-bottom 1em
+    if type is 'h2'
+      font-size fz-h2
+      margin-bottom .8em
+    if type is 'h3'
+      font-size fz-h3
+      margin-bottom .6em
+    if type is 'h4'
+      font-size fz-h4
+      margin-bottom .5em
+    if type is 'h5'
+      font-size fz-h5
+      margin-bottom .25em
+    if type is 'h6'
+      font-size fz-h6
+      margin-bottom .25em
   /**
   * choose a weight and ensure correct font is applied
   * will use safe font if body has _safe-font class
   */
-  font(weight=regular)
-    if weight is black
-      font-family ff-black
-      font-weight fw-black
-      letter-spacing: .2em
-    else if weight is semibold
-      font-family ff-semibold
-      font-weight fw-semibold
-    else if weight is medium
-      font-family ff-medium
-      font-weight fw-medium
-    else if weight is regular
-      font-family ff-regular
-      font-weight fw-regular
+  // font(weight=regular)
+  //   if weight is black
+  //     font-family ff-black
+  //     font-weight fw-black
+  //     letter-spacing: .2em
+  //   else if weight is semibold
+  //     font-family ff-semibold
+  //     font-weight fw-semibold
+  //   else if weight is medium
+  //     font-family ff-medium
+  //     font-weight fw-medium
+  //   else if weight is regular
+  //     font-family ff-regular
+  //     font-weight fw-regular
 
-    ._safe-font &
-      font-family ff-safe
+  //   ._safe-font &
+  //     font-family ff-safe
 
   font-url(file)
     return '~src/assets/fonts/' + file

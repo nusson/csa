@@ -1,0 +1,12 @@
+._safeVW
+  position relative
+  max-width vp-max
+  margin-left auto
+  margin-right auto
+  &._confortPaddings
+    max-width unit(vp-max - pad_total, 'px')
+    padding pad_total
+    +below(vp-tablet)
+      padding pad_confort
+    +below(vp-tablet-portrait)
+      padding pad_safe

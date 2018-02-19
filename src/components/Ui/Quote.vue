@@ -1,48 +1,45 @@
-<script>
-  /** > Quote page builder
-   *
-   * @author Nicolas Husson <hello@nusson.ninja>
-   */
+<doc>
+# UiQuote
+> A simple quote with author + animated text background
 
+- main content using `slot`
+- `author` and `background` animated text fron props
+
+@author Nicolas Husson <hello@nusson.ninja>
+</doc>
+
+<script>
   export default {
-    name: 'BuilderQuote',
-    components: { },
+    name: 'UiQuote',
     props: {
-      model: {
+      /** @augments {String} author - citation author */
+      author: {
+        type: String,
+        default: null,
+      },
+      /** @augments {String} Background - short bg animated text */
+      background: {
         type: Object,
         default: null,
       },
-    },
-    data() {
-      return {
-        debug: process.env.NODE_ENV === 'development',
-      };
-    },
-    watch: { },
-    mounted() {
-      console.log('quote', this.$i18n);
-    },
-    methods: {
-
     },
   };
 </script>
 
 <template>
-  <div
-    v-if="model"
-    :class="['BuilderQuote', {'is-debug': debug}]">
+  <div class="UiQuote">
     <blockquote class="Quote">
-      <p
-        class="content"
-        v-html="model.content" />
+      <div class="Content">
+        <slot/>
+      </div>
       <footer
-        class="author"
-        v-html="model.author" />
+        class="Author"
+        v-html="author" />
     </blockquote>
     <p
-      class="BackgroundText"
-      v-html="model.alt" />
+      ref="Background"
+      class="Background"
+      v-html="background" />
   </div>
 </template>
 
@@ -58,15 +55,13 @@
   */
 
   //  ===LAYOUT===
+  .UiQuote
+    //
 </style>
-
 
 <style lang="stylus">
   //  ===NO_SCOPE===
-  .BuilderQuote
-    //
-
-  //  ===DEBUG===
-  .BuilderQuote.is_debug
+  .UiQuote
     //
 </style>
+

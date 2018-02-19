@@ -7,9 +7,13 @@
 </doc>
 
 <script>
+import { UiTitle } from 'ui';
+
 export default {
   name: 'CommunityNotMembers',
-  components: {},
+  components: {
+    UiTitle,
+  },
   props: {},
   data: () => ({
     debug: process.env.NODE_ENV === 'development',
@@ -25,21 +29,17 @@ export default {
 <template>
   <article :class="['CommunityNotMembers', {'is-debug': debug}]">
     <header>
-      <h2
-        class="Title"
-        v-html="$t('title')"></h2>
+      <UiTitle v-html="$t('title')" />
     </header>
     <section class="Section Advantages">
       <h3 class="SectionTitle">Avantage à être membre</h3>
+      <pre>{{$t('advantages.0')}}</pre>
       <ul class="List">
         <li
           v-for="(advantage, index) in $t('advantages')"
           :key="'advantage-'+index"
           v-html="advantage.title" />
       </ul>
-    </section>
-    <section class="Section Advantages">
-      <h3 class="SectionTitle">Spots de highline</h3>
     </section>
   </article>
 </template>
@@ -56,10 +56,12 @@ export default {
   */
 
   //  ===LAYOUT===
+  .CommunityNotMembers
+    color c-white
 
   //  ===DEBUG===
-  .CommunityNotMembers.is_debug
-    //
+  .CommunityNotMembers.is-debug
+    height 100vh
 </style>
 
 

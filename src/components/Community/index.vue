@@ -9,6 +9,7 @@
 </doc>
 
 <script>
+import { UiSectionIntro } from 'ui';
 import CommunityMap from './Map';
 import CommunityRecords from './Records';
 import CommunityLinks from './Links';
@@ -18,31 +19,35 @@ import CommunityMembers from './Members';
 export default {
   name: 'ComunityPage',
   components: {
+    UiSectionIntro,
     CommunityMap,
     CommunityRecords,
     CommunityLinks,
     CommunityNotMembers,
     CommunityMembers,
   },
-  props: {},
-  data: () => ({
-    debug: process.env.NODE_ENV === 'development',
-    user: {
-      isMember: false,
-    },
-  }),
-  computed: {},
-  watch: {},
-  mounted() {},
-  beforeDestroyed() {},
-  methods: {},
+  data() {
+    return {
+      user: {
+        isMember: false, // @todo store
+      },
+    };
+  },
 };
 </script>
 
 <template>
-  <div :class="['ComunityPage', {'is-debug': debug}]">
+  <div class="ComunityPage">
+    <UiSectionIntro
+      class="Intro"
+      :title="$t('intro.title')"
+      :description="$t('intro.description')"
+      :image="$t('intro.image')"
+      />
+    <CommunityMap
+      class="Section Map"
+      ref="Map" />
     <div class="MapSection">
-      <CommunityMap ref="Map" />
       <div class="Tip">
         <h3 class="Title" v-html="$t('map.tips.title')" />
         <div class="content">
@@ -70,6 +75,11 @@ export default {
 <i18n>
 {
   "fr":{
+    "intro": {
+      "title": "Voluptate tempor pariatur",
+      "description": "<p>Cupidatat qui consectetur exercitation ad do ut do officia exercitation. Veniam nisi veniam sint ut irure labore aliquip occaecat culpa enim sunt duis sint eiusmod. Ea et ut nulla laboris. Qui duis sit officia in minim eu consequat. Sit voluptate nostrud cillum sint irure sint laborum mollit nulla occaecat officia dolor exercitation et. Esse laboris nisi elit cupidatat.</p>",
+      "image": "https://picsum.photos/800/600/?random"
+    },
     "map": {
       "tips": {
         "title": "Autres cartes utiles:",

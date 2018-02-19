@@ -8,6 +8,7 @@
  * --------
  *  - IMPORTS
  *  - SIZES_VIEWPORT
+ *  - SIZES_MARGINGS
  *  - SIZES_ELEMENTS
  *  - Z-INDEX
  *  - ANIMATIONS
@@ -31,9 +32,20 @@
   vp-desktop = 1280px
   vp-desktop-big = 1600px
 
-  vp-max = 1600px
+  vp-max = 1440px
+  vp-max-confort = 800px
+  vp-min-confort = 240px
   vp-safe-gutter = 20px
   vp-big-gutter = 5vw
+  vp-small-confort()
+    width 35%
+    max-width 400px
+
+/* ===SIZES_MARGINGS=== */
+  pad_safe    = 40px // padding left/right to be safe
+  pad_confort = 60px
+  pad_total   = pad_safe + pad_confort
+  pad_outside = pad_confort + 20px
 
 /* ===SIZES_ELEMENTS=== */
   // h-header = 100px
