@@ -26,7 +26,7 @@ export default {
   },
   watch: { },
   mounted() {
-    console.log('builder', this.model);
+    // console.log('builder', this.model);
   },
   methods: {
 

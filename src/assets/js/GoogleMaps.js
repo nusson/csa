@@ -1,4 +1,4 @@
-import { GOOGLE_MAP_API_KEY as API_KEY } from '@/config/Settings';
+import { GOOGLE_MAP_API_KEY as API_KEY } from 'Settings';
 import { jsonp } from './Utils';
 
 const gapiurl = `http://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=init`;

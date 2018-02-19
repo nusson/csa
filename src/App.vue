@@ -1,7 +1,7 @@
 <script>
   import { throttle } from 'lodash';
   import TheMenu from 'components/TheMenu';
-  import 'assets/stylus/index.styl';
+  // import 'assets/stylus/index.styl';
 
   /** > Our entry point
    *

@@ -1,5 +1,5 @@
-import Settings from '@/config/Settings';
-import LocaleService from '@/services/Locale';
+import Settings from 'Settings';
+import LocaleService from 'services/Locale';
 import Axios from 'axios';
 
 /** Service to consume our API
@@ -41,7 +41,7 @@ instance = new APIService();
 
 if (Settings.isDev) {
   window.APIService = instance;
-  console.log(instance); // eslint-disable-line
+  console.log('[api]', instance); // eslint-disable-line
 }
 
 const APIServiceSingleton = instance;

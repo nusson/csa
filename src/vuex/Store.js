@@ -17,6 +17,6 @@ const Store = new Vuex.Store({
 
 if (process.env.NODE_ENV === 'development') {
   window.$store = Store;
-  console.log(Store); // eslint-disable-line
+  console.log('[store]', Store); // eslint-disable-line
 }
 export default Store;

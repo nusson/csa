@@ -61,7 +61,7 @@ export default {
   <!-- @todo transition for appear effect ? -->
   <img
     class="UiImage"
-    :data-state="state"
+    :data-state="_state"
     :src="_src"
     v-bind="$attrs"
     />

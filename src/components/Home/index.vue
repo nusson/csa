@@ -31,7 +31,7 @@
       this.initSwiper();
     },
     onEnter(resolve) {
-      console.log('onEnter');
+      // console.log('onEnter');
       const timeline = new TimelineMax({
         onComplete: () => {
           resolve();
@@ -41,7 +41,7 @@
     },
     methods: {
       createSutterTimeline() {
-        console.log('this.$refs.Shutter', this.$refs.Shutter);
+        // console.log('this.$refs.Shutter', this.$refs.Shutter);
 
         this.shutterTimeline = new TimelineMax({
           paused: true,
@@ -94,7 +94,7 @@
           centeredSlides: true,
         })
           .on('setTranslate', () => {
-            console.log('setTranslate');
+            // console.log('setTranslate');
 
             this.$nextTick(() => {
               this.swiperStyle = {
@@ -111,7 +111,7 @@
             this.shutterTimeline.tweenTo('close', {
               ease: Power2.easeOut,
             });
-            console.log('touchStart');
+            // console.log('touchStart');
           })
           .on('touchEnd', () => {
             this.touch = false;
@@ -124,14 +124,14 @@
                 ease: Power2.easeOut,
                 // delay: 0.6,
               });
-              console.log('touchEnd');
+              // console.log('touchEnd');
             }, 600);
           })
           .on('slideChangeTransitionEnd', () => {
             if (this.touch) {
               return;
             }
-            console.log('slideChangeTransitionEnd');
+            // console.log('slideChangeTransitionEnd');
 
             this.shutterTimeline.tweenTo('open', {
               // ease: Power2.easeInOut,
@@ -143,7 +143,7 @@
           });
       },
       next() {
-        console.log(this.currentIndex, keys(this.pages).length);
+        // console.log(this.currentIndex, keys(this.pages).length);
 
         if (this.currentIndex >= keys(this.pages).length - 1) {
           return;

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Settings from '@/config/Settings';
+import Settings from 'Settings';
 import Global from 'datas/Global';
 import LocaleService from '@/services/Locale';
 import { get, map, flatten, filter } from 'lodash';

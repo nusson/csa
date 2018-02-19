@@ -35,7 +35,7 @@
       initialSlide() {
         const routeName = get(this.$route, 'meta.name');
         const routeIndex = findIndex(this.pages, { id: routeName });
-        console.log('initialSlide', this.$route, this.pages, routeName, routeIndex);
+        // console.log('initialSlide', this.$route, this.pages, routeName, routeIndex);
 
         this.currentIndex = routeIndex;
         return routeIndex;
@@ -47,7 +47,7 @@
       this.initSwiper();
     },
     onEnter(resolve) {
-      console.log('onEnter');
+      // console.log('onEnter');
       const timeline = new TimelineMax({
         onComplete: () => {
           resolve();
@@ -57,7 +57,7 @@
     },
     methods: {
       createSutterTimeline() {
-        console.log('this.$refs.Shutter', this.$refs.Shutter);
+        // console.log('this.$refs.Shutter', this.$refs.Shutter);
 
         this.shutterTimeline = new TimelineMax({
           paused: true,
@@ -106,7 +106,7 @@
         this.swiperBackground = new Swiper(this.$refs.Backgrounds, {
           initialSlide: this.initialSlide,
         });
-        console.log('initSwiper', this.initialSlide);
+        // console.log('initSwiper', this.initialSlide);
 
         this.swiper = new Swiper(this.$refs.Content, {
           slidesPerView: 'auto',

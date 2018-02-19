@@ -80,6 +80,7 @@ export default {
     align-items center
     width 100%
     box-sizing border-box
+    z-index z-section_intro
     .Title
       width 60%
       // @todo genera rules with compute vw like lightemotion

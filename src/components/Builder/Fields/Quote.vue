@@ -20,7 +20,6 @@
     },
     watch: { },
     mounted() {
-      console.log('quote', this.$i18n);
     },
     methods: {
 

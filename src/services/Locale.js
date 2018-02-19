@@ -4,8 +4,10 @@ import BrowserLanguage from 'in-browser-language';
 import Cookies from 'js-cookie';
 import { compose, without, head, indexOf } from 'lodash/fp';
 // import store from '@/vuex/Store';
-import Settings from '@/config/Settings';
+import Settings from 'Settings';
 import { FR, EN } from 'datas/lang';
+import { get } from 'lodash';
+
 /** Local service
  *
  * manage current local, switch lang, provite i18n plugin etc...
@@ -27,6 +29,13 @@ class LocaleService {
     this.store = null;
     this.i18n = new VueI18n();
     this.lang = this.defaultLang;
+
+    // @todo better way to do this
+    // @return like `$t` but as object
+    Vue.prototype.$_raw = function test(path) {
+      const locale = this.$i18n.locale;
+      return get(this.$i18n.messages[locale], path);
+    };
   }
 
   /**
@@ -110,7 +119,7 @@ instance = new LocaleService();
 
 if (Settings.isDev) {
   window.LocaleService = instance;
-  console.log(instance); // eslint-disable-line
+  console.log('[settings]', instance); // eslint-disable-line
 }
 
 const LocaleServiceSingleton = instance;

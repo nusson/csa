@@ -44,10 +44,10 @@ export default {
       :description="$t('intro.description')"
       :image="$t('intro.image')"
       />
-    <CommunityMap
-      class="Section Map"
-      ref="Map" />
-    <div class="MapSection">
+    <div class="MapSection _fullVW">
+      <CommunityMap
+        class=" Map"
+        ref="Map" />
       <div class="Tip">
         <h3 class="Title" v-html="$t('map.tips.title')" />
         <div class="content">
@@ -107,13 +107,7 @@ export default {
 
   //  ===LAYOUT===
   .MapSection
-    position relative
-    size 80vw 60vh
-    margin 0 auto
-    max-width 1280px
-    background-color black
-    border 50px solid black // @todo scrollmagic to create scale
-    margin-bottom 20vh
+    background-color c-light_bg
     >.ComunityMap
       absolute 0px 0
       overflow hidden
