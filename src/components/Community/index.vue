@@ -108,6 +108,7 @@ export default {
   //  ===LAYOUT===
   .MapSection
     background-color c-light_bg
+    padding-bottom 30vh
     >.ComunityMap
       absolute 0px 0
       overflow hidden

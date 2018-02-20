@@ -75,7 +75,6 @@ export default {
   //  ===LAYOUT===
   // .ComunityMap
   //   overflow hidden
-
   .Map
     position relative
     size 100%
