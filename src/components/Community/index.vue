@@ -37,39 +37,36 @@ export default {
 </script>
 
 <template>
-  <div class="ComunityPage">
+  <article class="ComunityPage">
     <UiSectionIntro
-      class="Intro"
+      class="Section Intro"
       :title="$t('intro.title')"
       :description="$t('intro.description')"
       :image="$t('intro.image')"
       />
-    <div class="MapSection _fullVW">
-      <CommunityMap
-        class=" Map"
-        ref="Map" />
-      <div class="Tip">
-        <h3 class="Title" v-html="$t('map.tips.title')" />
-        <div class="content">
-          <ul class="list">
-            <li>
-              <a
-                class="Link"
-                :href="$t('map.tips.link.href')"
-                target="_blank"
-                :title="$t('map.tips.link.alt')"
-                v-html="$t('map.tips.link.label')" />
-            </li>
-          </ul>
-        </div>
+
+    <CommunityMap class="Section Map _fullVW" />
+    <!-- <div class="Tip">
+      <h3 class="Title" v-html="$t('map.tips.title')" />
+      <div class="content">
+        <ul class="list">
+          <li>
+            <a
+              class="Link"
+              :href="$t('map.tips.link.href')"
+              target="_blank"
+              :title="$t('map.tips.link.alt')"
+              v-html="$t('map.tips.link.label')" />
+          </li>
+        </ul>
       </div>
-    </div>
+    </div> -->
     <CommunityRecords class="Community" />
     <CommunityLinks />
     <CommunityNotMembers v-if="!user.isMember" />
     <!-- <Shop /> -->
     <CommunityMembers v-if="user.isMember"/>
-  </div>
+  </article>
 </template>
 
 <i18n>
@@ -106,8 +103,11 @@ export default {
   */
 
   //  ===LAYOUT===
-  .MapSection
+  .Section
+    position relative
     background-color c-light_bg
+
+  .MapSection
     padding-bottom 30vh
     >.ComunityMap
       absolute 0px 0

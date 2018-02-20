@@ -38,12 +38,14 @@
 </script>
 
 <template>
-  <div :class="['App', {'is-debug': debug}]">
+  <div class="App">
 
     <main>
       <template v-if="loaded">
         <TheMenu />
-        <router-view ref="Page"></router-view>
+        <router-view
+          ref="Page"
+          class="Page" />
       </template>
       <p v-else>LOADING</p>
     </main>
@@ -66,15 +68,17 @@
   //  ===LAYOUT===
   .App
     background-color black
+
+  .Page
+    padding-top 100vh
+    position relative
 </style>
 
 
 <style lang="stylus">
   //  ===NO_SCOPE===
-  .App
-    //
-
-  //  ===DEBUG===
-  .App.is_debug
-    //
+  .Section
+    position relative
+    background-color c-light_bg
+    z-index 1
 </style>

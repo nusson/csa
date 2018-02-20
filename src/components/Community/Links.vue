@@ -29,9 +29,17 @@ export default {
 </script>
 
 <template>
-  <div :class="['CommunityLinks', {'is-debug': debug}]">
-    <h2 v-html="$t('title')"></h2>
-  </div>
+  <section class="CommunityLinks">
+    <UiTitle
+      ref="Title"
+      class="Title"
+      tag="h2"
+      v-html="title"/>
+    <UiList
+      ref="Links"
+      class="Links"
+      :items="links" />
+  </section>
 </template>
 
 <style lang="stylus" scoped>

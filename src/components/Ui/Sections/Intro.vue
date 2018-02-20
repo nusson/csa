@@ -39,7 +39,7 @@ export default {
 </script>
 
 <template>
-  <section class="UiSectionIntro">
+  <header class="UiSectionIntro">
     <div class="Content _safeVW _confortPaddings">
       <UiTitle
         ref="Title"
@@ -56,7 +56,7 @@ export default {
         class="Image"
         :image="image" />
     </div>
-  </section>
+  </header>
 </template>
 
 <style lang="stylus" scoped>

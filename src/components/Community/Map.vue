@@ -35,7 +35,7 @@ export default {
 </script>
 
 <template>
-  <div class="ComunityMap">
+  <section class="ComunityMap">
     <UiMap
       v-sm="{
         type: 'grow_sticky'
@@ -58,7 +58,7 @@ export default {
         <input type="submit" value=">">
       </div>
     </form>
-  </div>
+  </section>
 </template>
 
 <style lang="stylus" scoped>
@@ -77,7 +77,7 @@ export default {
   //   overflow hidden
   .Map
     position relative
-    size 100%
+    size 100vw 100vh
 
   .ContentSection
     absolute 50% 100px false false

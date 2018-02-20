@@ -261,6 +261,7 @@
   .TheMenu
     background: c-black
     position relative
+    position fixed
     &:before
       // content ''
       absolute 0 0 0 50%
