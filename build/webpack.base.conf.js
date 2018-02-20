@@ -31,6 +31,7 @@ module.exports = {
       assets: resolve("src/assets"),
       img: resolve("src/assets/img"),
       datas: resolve("src/assets/datas"),
+      directives: resolve("src/directives"),
       components: resolve("src/components"),
       cpt: resolve("src/components"),
       ui: resolve("src/components/Ui"),

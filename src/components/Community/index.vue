@@ -64,7 +64,7 @@ export default {
         </div>
       </div>
     </div>
-    <CommunityRecords />
+    <CommunityRecords class="Community" />
     <CommunityLinks />
     <CommunityNotMembers v-if="!user.isMember" />
     <!-- <Shop /> -->
@@ -125,6 +125,9 @@ export default {
       color black
       transform translateY(15vh) // @todo scrollmagic to create move
 
+  .Community
+    background-color c-light_bg
+    color c-dark
 
   //  ===DEBUG===
   .ComunityPage.is_debug

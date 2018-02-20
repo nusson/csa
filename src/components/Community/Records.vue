@@ -54,39 +54,42 @@ export default {
 
 <template>
   <div :class="['CommunityRecords', {'is-debug': debug}]">
-    <h2 class="Title" v-html="$t('title')"></h2>
-    <!-- <AppImage /> -->
-    <img
-      class="Image"
-      :src="images.chart">
-    <ul class="Records list">
-      <li
-        v-for="record in records"
-        :key="'record-'+record.id"
-        :class="['item', 'Record']">
-        <figure class="Card">
-          <img
-            class="Image"
-            :src="record.user.avatar"
-            :alt="record.title+' - '+record.user.name">
-          <figcaption class="Caption">
-            <h3
-              class="Title"
-              v-html="record.title" />
-            <ul class="Infos list">
-              <li
-                v-for="(info, label) in getRecordInfos(record)"
-                :key="'info-'+record.id+'-'+label"
-                class="item -name">
-                  <strong class="label" v-html="$t(label)" />
-                  <span class="info" v-html="info" />
-              </li>
-            </ul>
-          </figcaption>
-        </figure>
+    <div class="Content  _confortPaddings _safeVW">
 
-      </li>
-    </ul>
+      <h2 class="Title" v-html="$t('title')"></h2>
+      <!-- <AppImage /> -->
+      <img
+        class="Image"
+        :src="images.chart">
+      <ul class="Records list">
+        <li
+          v-for="record in records"
+          :key="'record-'+record.id"
+          :class="['item', 'Record']">
+          <figure class="Card">
+            <img
+              class="Image"
+              :src="record.user.avatar"
+              :alt="record.title+' - '+record.user.name">
+            <figcaption class="Caption">
+              <h3
+                class="Title"
+                v-html="record.title" />
+              <ul class="Infos list">
+                <li
+                  v-for="(info, label) in getRecordInfos(record)"
+                  :key="'info-'+record.id+'-'+label"
+                  class="item -name">
+                    <strong class="label" v-html="$t(label)" />
+                    <span class="info" v-html="info" />
+                </li>
+              </ul>
+            </figcaption>
+          </figure>
+
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 

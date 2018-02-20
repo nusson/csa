@@ -10,10 +10,14 @@
 import { UiMap } from 'ui';
 import GoogleMap from 'assets/js/GoogleMaps';
 import { mapGetters } from 'vuex';
+import ScrollMagicDirective from 'directives/ScrollMagic';
 
 
 export default {
   name: 'ComunityMap',
+  directives: {
+    sm: ScrollMagicDirective,
+  },
   components: { UiMap },
   props: {},
   data() {
@@ -33,6 +37,9 @@ export default {
 <template>
   <div class="ComunityMap">
     <UiMap
+      v-sm="{
+        type: 'grow_sticky'
+      }"
       ref="Map"
       class="Map" />
 
