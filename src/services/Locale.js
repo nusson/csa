@@ -32,7 +32,7 @@ class LocaleService {
 
     // @todo better way to do this
     // @return like `$t` but as object
-    Vue.prototype.$_raw = function test(path) {
+    Vue.prototype.$t_raw = function test(path) {
       const locale = this.$i18n.locale;
       return get(this.$i18n.messages[locale], path);
     };
