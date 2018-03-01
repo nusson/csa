@@ -1,9 +1,8 @@
 <doc>
-  /** CommunityNotMembers
-   * > If not a members section
-   *
-   * @author Nicolas Husson <hello@nusson.ninja>
-   */
+  # CommunityNotMembers
+  > If not a members section, else will use CommunityMembers
+
+  @author Nicolas Husson <hello@nusson.ninja>
 </doc>
 
 <script>
@@ -15,30 +14,21 @@ export default {
     UiTitle,
     UiWysiwyg,
   },
-  props: {},
-  data: () => ({
-    debug: process.env.NODE_ENV === 'development',
-  }),
-  computed: {},
-  watch: {},
-  mounted() {},
-  beforeDestroyed() {},
-  methods: {},
 };
 </script>
 
 <template>
-  <article :class="['CommunityNotMembers', {'is-debug': debug}]">
-    <header class="header">
-      <UiTitle v-text="$t('title')" />
-    </header>
-    <div class="content">
+  <article class="CommunityNotMembers">
+    <div class="content _safeVW _confortPadding">
+      <header class="Header">
+        <UiTitle v-text="$t('title')" />
+      </header>
       <section class="Section About">
         <div class="content">
           <UiTitle
             tag="h3"
             v-text="$t('about.title')" />
-          <ul class="List">
+          <ul class="list">
             <li
               v-for="(item, index) in $t_raw('about.items')"
               :key="'about-'+index"
@@ -56,7 +46,7 @@ export default {
           <UiTitle
             tag="h3"
             v-text="$t('advantages.title')" />
-          <ul class="List">
+          <ul class="list">
             <li
               v-for="(item, index) in $t_raw('advantages.items')"
               :key="'advantage-'+index"
@@ -91,25 +81,24 @@ export default {
     color c-black
     background-color c-white
     z-index 1
-    >.header
-    >.content
-      max-width 800px
-      margin-left auto
-      margin-right auto
+
+  .Header
+    width 60%
 
   .Section
-    margin-bottom 2em
+    width 70%
+    margin-bottom 60px
+    .list
+      margin-top 30px
+      > .item
+        margin-bottom 20px
 
   //  ===DEBUG===
-  .CommunityNotMembers.is-debug
-    // height 100vh
 </style>
 
 
 <style lang="stylus">
   //  ===NO_SCOPE===
-  .CommunityNotMembers
-    //
 </style>
 
 <i18n>
@@ -145,8 +134,8 @@ export default {
       "title": "Other advantage of the membership",
       "items":[
         {
-          "title": "",
-          "description_html": "<p>Map with highline spots and beta</p>"
+          "title": "Map with highline spots and beta",
+          "description_html": "<p>Blablabla</p>"
         },
         {
           "title": "Discounts for local indoor meetups",
@@ -218,8 +207,8 @@ export default {
       "title": "Other advantage of the membership",
       "items":[
         {
-          "title": "",
-          "description_html": "<p>Map with highline spots and beta</p>"
+          "title": "Map with highline spots and beta",
+          "description_html": "<p>Blablabla</p>"
         },
         {
           "title": "Discounts for local indoor meetups",
