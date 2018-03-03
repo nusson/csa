@@ -87,6 +87,23 @@ export default {
         }
       }
     }
+  },
+  "en":{
+    "intro": {
+      "title": "Voluptate tempor pariatur",
+      "description": "<p>Cupidatat qui consectetur exercitation ad do ut do officia exercitation. Veniam nisi veniam sint ut irure labore aliquip occaecat culpa enim sunt duis sint eiusmod. Ea et ut nulla laboris. Qui duis sit officia in minim eu consequat. Sit voluptate nostrud cillum sint irure sint laborum mollit nulla occaecat officia dolor exercitation et. Esse laboris nisi elit cupidatat.</p>",
+      "image": "https://picsum.photos/800/600/?random"
+    },
+    "map": {
+      "tips": {
+        "title": "Autres cartes utiles:",
+        "link": {
+          "href": "http://www.slacklinegroups.com",
+          "alt": "slacklinegroups",
+          "label": "slacklinegroups.com - La slackomunauté mondiale"
+        }
+      }
+    }
   }
 }
 </i18n>

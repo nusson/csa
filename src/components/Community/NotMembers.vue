@@ -35,8 +35,11 @@ export default {
               class="item">
               <UiTitle
                 tag="h4"
+                class="title"
                 v-text="item.title" />
-              <UiWysiwyg v-html="item.description_html" />
+              <UiWysiwyg
+                class="description"
+                v-html="item.description_html" />
             </li>
           </ul>
         </div>
@@ -53,8 +56,11 @@ export default {
               class="item">
               <UiTitle
                 tag="h4"
+                class="title"
                 v-text="item.title" />
-              <UiWysiwyg v-html="item.description_html" />
+              <UiWysiwyg
+                class="description"
+                v-html="item.description_html" />
             </li>
           </ul>
         </div>
@@ -92,6 +98,10 @@ export default {
       margin-top 30px
       > .item
         margin-bottom 20px
+
+    .description
+      absolute left 50vw
+
 
   //  ===DEBUG===
 </style>
@@ -142,16 +152,16 @@ export default {
           "description_html": "<ul><li></li>Monkey Vault, Toronto</li><li>Taz</li><li>iSaute</li><li>QC</li></u>"
         },
         {
-          "title": "Can borrow gear (where association with gear is present)",
-          "description_html": "<p>where association with gear is present</p>"
+          "title": "Can borrow gear",
+          "description_html": "<p>... only where association with gear is present<ul><li>Torronto</li><li>Montreal</li><li>Quebec</li></ul></p><p>Ad commodo ea aliquip et id dolor sit duis.</p>"
         },
         {
-          "title": "Unique free workshops",
-          "description_html": "<p>xxx</p>"
+          "title": "Unique free workshops and events",
+          "description_html": "<p>Laboris cillum aute cupidatat voluptate id culpa eiusmod ullamco reprehenderit reprehenderit sint sit labore.</p>"
         },
         {
-          "title": "Newsletter ",
-          "description_html": "<p>blablabla</p>"
+          "title": "Custom newsletter",
+          "description_html": "<p>Qui qui tempor cupidatat proident non ut pariatur dolore enim incididunt quis veniam deserunt amet.</p>"
         },
         {
           "title": "The CSA as a database",
@@ -162,7 +172,7 @@ export default {
           "description_html": "<p>so we know if<ul><li>You are accredited or not</li><li>Access to restricted events</li><li>Gear exchange datas</li><li>I you make a records</li></ul></p>"
         },
         {
-          "title": "Offer members the opportunity to go highlining",
+          "title": "More opportunity to go highlining",
           "description_html": "<p><ul><li>Organize highligne meetups</li><li>Easy spots for beginners (terrebonnes etc)</li><li>Introduction to rigging</li><li>I personally love the Lucas technique to always try to bring a motivated beginner with you at all your expeditions</li><li>Facilitate transport (tool for covoiturage within website)</li></ul></p>"
         },
         {
