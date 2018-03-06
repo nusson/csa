@@ -7,6 +7,7 @@
 
 <script>
 import { UiTitle, UiWysiwyg } from 'ui';
+import { Scene } from 'scrollmagic';
 
 export default {
   name: 'CommunityNotMembers',
@@ -14,37 +15,82 @@ export default {
     UiTitle,
     UiWysiwyg,
   },
+  data() {
+    return {
+
+    };
+  },
+  computed: {
+    // ...mapGetters(
+    //   SMController: 'ScrollMagic/controller',
+    // )
+  },
+  mounted() {
+    this.initScrollMagic();
+  },
+  methods: {
+    /** init scroll magic
+     * header is normal but content would pin and be revealed by header
+     * then, let 20% scroll time in tha section... just for the feeling ;)
+     */
+    initScrollMagic() {
+      console.log('this.$refs.Content', this.$refs.Content);
+
+      const scene = new Scene({
+        triggerElement: this.$refs.Header,
+        triggerHook: 0,
+        duration: '220%',
+      })
+        .setPin(this.$refs.Content, { pushFollowers: true });
+      // this.$store.dispatch('ScrollMagic/ADDTO_PAGE_CONTROLLER', scene);
+    },
+    showFact(item) {
+      console.log('showFact', item);
+    },
+    hideFact(item) {
+      console.log('hideFact', item);
+    },
+  },
 };
 </script>
 
 <template>
   <article class="CommunityNotMembers">
-    <div class="content _safeVW _confortPadding">
-      <header class="Header">
-        <UiTitle v-text="$t('title')" />
-      </header>
-      <section class="Section About">
-        <div class="content">
-          <UiTitle
+    <header
+      ref="Header"
+      class="Header">
+      <UiTitle v-text="$t('title')" />
+    </header>
+    <div
+      ref="Content"
+      class="Content _safeVW _confortPaddings">
+      <section
+        class="Section About">
+        <!-- <div class="content"> -->
+          <!-- <UiTitle
             tag="h3"
-            v-text="$t('about.title')" />
-          <ul class="list">
+            v-text="$t('about.title')" /> -->
+          <ul class="List">
             <li
               v-for="(item, index) in $t_raw('about.items')"
               :key="'about-'+index"
-              class="item">
+              class="item Fact"
+              @mouseenter="showFact(index)"
+              @mouseleave="hideFact(index)">
               <UiTitle
                 tag="h4"
                 class="title"
                 v-text="item.title" />
-              <UiWysiwyg
-                class="description"
-                v-html="item.description_html" />
+              <div class="content">
+                <UiWysiwyg
+                  class="description"
+                  v-html="item.description_html" />
+              </div>
             </li>
           </ul>
-        </div>
+        <!-- </div> -->
       </section>
-      <section class="Section Advantages">
+      <!-- <section class="Section Advantages">
         <div class="content">
           <UiTitle
             tag="h3"
@@ -64,7 +110,7 @@ export default {
             </li>
           </ul>
         </div>
-      </section>
+      </section> -->
     </div>
   </article>
 </template>
@@ -83,27 +129,50 @@ export default {
   //  ===LAYOUT===
   .CommunityNotMembers
     position relative
-    padding 60px
+    // padding 60px
     color c-black
     background-color c-white
     z-index 1
 
+  .Content
+    top 0
+    size 100% 100vh
+
   .Header
-    width 60%
+    // absolute top 0 left 0
+    size 100vw 100vh
+    display flex
+    align-items center
+    justify-content center
+    z-index 10
+    background-color c-white
 
   .Section
-    width 70%
-    margin-bottom 60px
-    .list
-      margin-top 30px
+    display flex
+    align-items center
+    size 100%
+    .List
+      max-width 50%
+      padding-right 30px
+      box-sizing border-box
       > .item
         margin-bottom 20px
 
-    .description
-      absolute left 50vw
+  .Fact
+    >.content
+      display none
+      absolute left 50%
+      width 50%
 
 
   //  ===DEBUG===
+
+  .Content
+    background-color rgba(red, 50%)
+    edit()
+
+  // .Header
+  //   background-color rgba(blue, 50%)
 </style>
 
 

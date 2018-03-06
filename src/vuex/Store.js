@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import App from './modules/App';
+import ScrollMagic from './modules/ScrollMagic';
 
 Vue.use(Vuex);
 
@@ -11,6 +12,7 @@ Vue.use(Vuex);
 const Store = new Vuex.Store({
   modules: {
     App,
+    ScrollMagic,
   },
 });
 

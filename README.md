@@ -11,6 +11,11 @@
 - [History](#history)
 - [License](#license)
 
+## TODO DEV
+
+- use css vars in place of 100vw/vh
+  - use polyfill https://gist.github.com/stramel/91d05253f801f771da38b3bc7d3c765f
+
 ## Installation
 
 How to install that project and run/build it...
@@ -70,3 +75,4 @@ TODO: Write credits
 
 Released under the [MIT Licence](https://opensource.org/licenses/MIT)
 Copyright @ 2017 Nicolas Husson
+
