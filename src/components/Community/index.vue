@@ -12,7 +12,7 @@
 import { UiSectionIntro } from 'ui';
 import CommunityMap from './Map';
 import CommunityRecords from './Records';
-import CommunityLinks from './Links';
+// import CommunityLinks from './Links';
 import CommunityNotMembers from './NotMembers';
 import CommunityMembers from './Members';
 
@@ -22,7 +22,7 @@ export default {
     UiSectionIntro,
     CommunityMap,
     CommunityRecords,
-    CommunityLinks,
+    // CommunityLinks,
     CommunityNotMembers,
     CommunityMembers,
   },
@@ -62,7 +62,7 @@ export default {
       </div>
     </div> -->
     <CommunityRecords class="Community" />
-    <CommunityLinks />
+    <!-- <CommunityLinks /> -->
     <CommunityNotMembers v-if="!user.isMember" />
     <!-- <Shop /> -->
     <CommunityMembers v-if="user.isMember"/>

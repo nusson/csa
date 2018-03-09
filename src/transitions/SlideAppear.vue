@@ -75,6 +75,7 @@ export default {
         .from(el, this.speed, {
           autoAlpha: 0,
           [this.direction.prop]: `+=${this.direction.value}`,
+          ease: Expo.easeOut,
         });
     },
     leave(el, done) {
@@ -84,6 +85,7 @@ export default {
         .to(el, this.speed, {
           autoAlpha: 0,
           [this.direction.prop]: `-=${this.direction.value}`,
+          ease: Expo.easeIn,
         });
     },
   },

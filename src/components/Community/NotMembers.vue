@@ -6,7 +6,7 @@
 </doc>
 
 <script>
-import { UiTitle, UiWysiwyg } from 'ui';
+import { UiTitle, UiWysiwyg, UiParalaxHeader } from 'ui';
 import { SlideAppearTransition } from 'transitions';
 import { Scene } from 'scrollmagic';
 
@@ -15,6 +15,7 @@ export default {
   components: {
     UiTitle,
     UiWysiwyg,
+    UiParalaxHeader,
     SlideAppearTransition,
   },
   data() {
@@ -55,11 +56,7 @@ export default {
 
 <template>
   <article class="CommunityNotMembers">
-    <header
-      ref="Header"
-      class="Header">
-      <UiTitle v-text="$t('title')" />
-    </header>
+    <UiParalaxHeader>{{$t('title')}}</UiParalaxHeader>
     <div
       ref="Content"
       class="Content _safeVW _confortPaddings">

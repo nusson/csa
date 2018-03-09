@@ -25,6 +25,7 @@ export default {
   },
   actions: {
     ADDTO_PAGE_CONTROLLER({ commit }, scene) {
+      scene.addIndicators();
       commit('ADD_SCENE', scene);
     },
   },

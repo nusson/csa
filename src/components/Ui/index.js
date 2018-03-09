@@ -5,5 +5,6 @@ export { default as UiQuote } from './Quote';
 export { default as UiImage } from './Image';
 export { default as UiList } from './List';
 export { default as UiMap } from './Map';
+export { default as UiParalaxHeader } from './ParalaxHeader';
 export { default as UiSectionIntro } from './Sections/Intro';
 
