@@ -7,6 +7,7 @@
 
 <script>
 import { UiTitle, UiWysiwyg } from 'ui';
+import { SlideAppearTransition } from 'transitions';
 import { Scene } from 'scrollmagic';
 
 export default {
@@ -14,10 +15,11 @@ export default {
   components: {
     UiTitle,
     UiWysiwyg,
+    SlideAppearTransition,
   },
   data() {
     return {
-
+      currentIndex: 0,
     };
   },
   computed: {
@@ -34,21 +36,18 @@ export default {
      * then, let 20% scroll time in tha section... just for the feeling ;)
      */
     initScrollMagic() {
-      console.log('this.$refs.Content', this.$refs.Content);
-
       const scene = new Scene({
         triggerElement: this.$refs.Header,
         triggerHook: 0,
-        duration: '220%',
+        duration: '130%',
       })
         .setPin(this.$refs.Content, { pushFollowers: true });
-      // this.$store.dispatch('ScrollMagic/ADDTO_PAGE_CONTROLLER', scene);
+      this.$store.dispatch('ScrollMagic/ADDTO_PAGE_CONTROLLER', scene);
     },
-    showFact(item) {
-      console.log('showFact', item);
+    showFact(index) {
+      this.currentIndex = index;
     },
-    hideFact(item) {
-      console.log('hideFact', item);
+    hideFact(index) {
     },
   },
 };
@@ -81,11 +80,16 @@ export default {
                 tag="h4"
                 class="title"
                 v-text="item.title" />
-              <div class="content">
-                <UiWysiwyg
-                  class="description"
-                  v-html="item.description_html" />
-              </div>
+              <SlideAppearTransition
+                  v-if="index === currentIndex">
+                <div
+                  :key="'about-content-'+index"
+                  class="content">
+                  <UiWysiwyg
+                    class="description"
+                    v-html="item.description_html" />
+                </div>
+              </SlideAppearTransition>
             </li>
           </ul>
         <!-- </div> -->
@@ -137,9 +141,11 @@ export default {
   .Content
     top 0
     size 100% 100vh
+    padding-top 0
+    padding-bottom 0
 
   .Header
-    // absolute top 0 left 0
+    absolute top 0 left 0
     size 100vw 100vh
     display flex
     align-items center
@@ -160,16 +166,16 @@ export default {
 
   .Fact
     >.content
-      display none
-      absolute left 50%
+      absolute top 50% left 50%
       width 50%
+      transform translateY(-50%)
 
 
   //  ===DEBUG===
 
-  .Content
-    background-color rgba(red, 50%)
-    edit()
+  // .Content
+  //   background-color rgba(red, 50%)
+  //   edit()
 
   // .Header
   //   background-color rgba(blue, 50%)

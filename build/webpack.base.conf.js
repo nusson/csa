@@ -33,6 +33,7 @@ module.exports = {
       datas: resolve("src/assets/datas"),
       directives: resolve("src/directives"),
       components: resolve("src/components"),
+      transitions: resolve("src/transitions"),
       cpt: resolve("src/components"),
       ui: resolve("src/components/Ui"),
       config: resolve("src/config"),
@@ -44,16 +45,10 @@ module.exports = {
       gsapPlugins: resolve("node_modules/gsap/src/uncompressed/plugins"),
       TweenLite: resolve("node_modules/gsap/src/uncompressed/TweenLite.js"),
       TweenMax: resolve("node_modules/gsap/src/uncompressed/TweenMax.js"),
-      TimelineLite: resolve(
-        "node_modules/gsap/src/uncompressed/TimelineLite.js"
-      ),
+      TimelineLite: resolve("node_modules/gsap/src/uncompressed/TimelineLite.js"),
       TimelineMax: resolve("node_modules/gsap/src/uncompressed/TimelineMax.js"),
-      ScrollMagic: resolve(
-        "node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js"
-      ),
-      ScrollMagicPlugins: resolve(
-        "node_modules/scrollmagic/scrollmagic/uncompressed/plugins/"
-      )
+      ScrollMagic: resolve("node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js"),
+      ScrollMagicPlugins: resolve("node_modules/scrollmagic/scrollmagic/uncompressed/plugins/")
     }
   },
   module: {

@@ -2,13 +2,14 @@
   position relative
   size 100% 100vh
 ._safeVW
-  position relative
+  position relative !important
   max-width vp-max
-  margin-left auto
-  margin-right auto
+  margin-left auto !important
+  margin-right auto !important
   &._confortPaddings
     max-width unit(vp-max - pad_total, 'px')
     padding 240px pad_total // @todo ruleRatio
+    box-sizing: content-box !important
     +below(vp-tablet)
       padding pad_confort
     +below(vp-tablet-portrait)
