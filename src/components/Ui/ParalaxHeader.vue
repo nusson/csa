@@ -35,14 +35,15 @@ export default {
      * and no need refs to tha timeline ;)
      */
     createTimeline() {
-      const el = this.$refs.Title;
-      console.log('el.offsetWidth', el.offsetWidth, window.innerWidth);
-
+      const el = this.$refs.BackgroundTitle;
+      if (!el) {
+        return 0;
+      }
       return new TimelineMax({})
-        .fromTo(this.$refs.Title, 1, {
-          x: window.innerWidth, // () => window.innerWidth + el.offsetWidth,
+        .fromTo(this.$refs.BackgroundTitle, 1, {
+          x: 0, // () => window.innerWidth + el.offsetWidth,
         }, {
-          x: () => -el.offsetWidth,
+          x: window.innerWidth - el.offsetWidth,
           ease: Power0.easeNone,
         });
     },
@@ -52,8 +53,12 @@ export default {
     initScrollMagic() {
       const scene = new Scene({
         triggerElement: this.$el,
-        triggerHook: 0.8,
-        duration: '120%',
+        triggerHook: 1,
+        duration: (() => {
+          const h = window.innerHeight + this.$el.offsetHeight;
+          return h;
+        })(),
+
       })
         .setTween(this.createTimeline());
       this.$store.dispatch('ScrollMagic/ADDTO_PAGE_CONTROLLER', scene);
@@ -64,11 +69,18 @@ export default {
 
 <template>
   <header class="UiParalaxHeader">
-    <h2
+    <div
+      ref="BackgroundTitle"
+      class="BackgroundTitle"
+      v-text="$slots.default[0].text">
+    </div>
+    <UiTitle
       ref="Title"
-      class="Title">
+      class="Title"
+      tag="h2"
+      :level="1">
       <slot />
-    </h2>
+    </UiTitle>
   </header>
 </template>
 
@@ -84,11 +96,24 @@ export default {
   */
 
   //  ===LAYOUT===
-  .Title
+  .UiParalaxHeader
+    position relative
+
+  .BackgroundTitle
     display inline-block
-    padding-top 60px
-    padding-bottom 60px
+    padding 0
+    font('title')
+    line-height 1
     font-size 60rem
     white-space nowrap
+    text-transform uppercase
+    letter-spacing -0.1em
+
+  .Title
+    absolute top 50% left 50%
+    transform translate(-50%, -50%)
+    color white
+    text-transform uppercase
+    text-align center
   //  ===DEBUG===
 </style>

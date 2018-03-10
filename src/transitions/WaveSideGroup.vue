@@ -11,12 +11,6 @@ import { Expo, TimelineMax } from 'gsap';
 export default {
   name: 'WaveSideGroupTransition',
   props: {
-    ease: {
-      type: Function,
-      default() {
-        return Expo.easeOut;
-      },
-    },
     speed: {
       type: Number,
       default: 0.6,
@@ -28,7 +22,7 @@ export default {
   },
   methods: {
     enter(el, done) {
-      new TimelineMax({
+      return new TimelineMax({
         onComplete: done,
       })
         .staggerFrom(el, this.speed, {
@@ -38,7 +32,7 @@ export default {
         }, 0.1);
     },
     leave(el, done) {
-      new TimelineMax({
+      return new TimelineMax({
         onComplete: done,
       })
         .staggerTo(el, this.speed, {
@@ -55,7 +49,7 @@ export default {
   <transition-group
     class="WaveSideGroupTransition"
     apear
-    :mode=""
+    :mode="mode"
     :css="false"
     @enter="enter"
     @leave="leave">

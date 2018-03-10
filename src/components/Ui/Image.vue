@@ -10,6 +10,8 @@
 </doc>
 
 <script>
+import { uniqueId } from 'lodash';
+
 export default {
   name: 'UiImage',
   props: {
@@ -17,7 +19,11 @@ export default {
       type: String,
       default: null,
     },
-
+    /* if defined, must be covermode ('cover' | 'contain' ...) */
+    background:{
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
@@ -36,7 +42,7 @@ export default {
      * @todo may return placeholder or loader etc
      */
     _src() {
-      if (this.debug) return `https://picsum.photos/${600}/?random`;
+      if (this.debug) return `https://picsum.photos/${600}/?image=${this.getRandomId()}`;
 
       if (!this.loaded) return null; // @todo loader ?
 
@@ -53,6 +59,9 @@ export default {
     load() {
       this.loaded = true;
     },
+    getRandomId() {
+      return Math.ceil(Math.random() * 3000, 10);
+    },
   },
 };
 </script>
@@ -62,6 +71,7 @@ export default {
   <img
     class="UiImage"
     :data-state="_state"
+    :data-coverMode="coverMode"
     :src="_src"
     v-bind="$attrs"
     />
@@ -80,6 +90,16 @@ export default {
 
   //  ===LAYOUT===
   .UiImage
+    &[data-cover-mode]
+      absolute 0
+      size 100%
+      display block
+
+    // @todo polyfill
+    &[data-cover-mode="cover"]
+      object-fit cover
+    &[data-cover-mode="contain"]
+      object-fit contain
     //
 
   //  ===DEBUG===

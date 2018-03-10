@@ -6,17 +6,14 @@
 </doc>
 
 <script>
-import { UiTitle, UiWysiwyg, UiParalaxHeader } from 'ui';
-import { SlideAppearTransition } from 'transitions';
+import { UiParalaxHeader, UiSectionVTextBgContent } from 'ui';
 import { Scene } from 'scrollmagic';
 
 export default {
   name: 'CommunityNotMembers',
   components: {
-    UiTitle,
-    UiWysiwyg,
     UiParalaxHeader,
-    SlideAppearTransition,
+    UiSectionVTextBgContent,
   },
   data() {
     return {
@@ -37,12 +34,14 @@ export default {
      * then, let 20% scroll time in tha section... just for the feeling ;)
      */
     initScrollMagic() {
+      console.log('Fact', this.$refs.Fact);
+
       const scene = new Scene({
-        triggerElement: this.$refs.Header,
-        triggerHook: 0,
-        duration: '130%',
-      })
-        .setPin(this.$refs.Content, { pushFollowers: true });
+        triggerElement: this.$refs.Content,
+        triggerHook: 0.3,
+      });
+      // .on('enter', this.)
+      // .setPin(this.$refs.Content, { pushFollowers: true });
       this.$store.dispatch('ScrollMagic/ADDTO_PAGE_CONTROLLER', scene);
     },
     showFact(index) {
@@ -56,41 +55,10 @@ export default {
 
 <template>
   <article class="CommunityNotMembers">
-    <UiParalaxHeader>{{$t('title')}}</UiParalaxHeader>
-    <div
-      ref="Content"
-      class="Content _safeVW _confortPaddings">
-      <section
-        class="Section About">
-        <!-- <div class="content"> -->
-          <!-- <UiTitle
-            tag="h3"
-            v-text="$t('about.title')" /> -->
-          <ul class="List">
-            <li
-              v-for="(item, index) in $t_raw('about.items')"
-              :key="'about-'+index"
-              class="item Fact"
-              @mouseenter="showFact(index)"
-              @mouseleave="hideFact(index)">
-              <UiTitle
-                tag="h4"
-                class="title"
-                v-text="item.title" />
-              <SlideAppearTransition
-                  v-if="index === currentIndex">
-                <div
-                  :key="'about-content-'+index"
-                  class="content">
-                  <UiWysiwyg
-                    class="description"
-                    v-html="item.description_html" />
-                </div>
-              </SlideAppearTransition>
-            </li>
-          </ul>
-        <!-- </div> -->
-      </section>
+    <UiParalaxHeader class="Header">{{ $t('title') }}</UiParalaxHeader>
+    <UiSectionVTextBgContent
+      class="Content _safeVW _confortPaddings"
+      :items="$t_raw('about.items')" />
       <!-- <section class="Section Advantages">
         <div class="content">
           <UiTitle
@@ -112,7 +80,6 @@ export default {
           </ul>
         </div>
       </section> -->
-    </div>
   </article>
 </template>
 
