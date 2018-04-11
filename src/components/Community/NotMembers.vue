@@ -8,6 +8,7 @@
 <script>
 import { UiParalaxHeader, UiSectionVTextBgContent } from 'ui';
 import { Scene } from 'scrollmagic';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'CommunityNotMembers',
@@ -24,6 +25,9 @@ export default {
     // ...mapGetters(
     //   SMController: 'ScrollMagic/controller',
     // )
+    ...mapGetters({
+      viewport: 'App/viewport',
+    }),
   },
   mounted() {
     this.initScrollMagic();
@@ -34,21 +38,36 @@ export default {
      * then, let 20% scroll time in tha section... just for the feeling ;)
      */
     initScrollMagic() {
-      console.log('Fact', this.$refs.Fact);
-
-      const scene = new Scene({
-        triggerElement: this.$refs.Content,
-        triggerHook: 0.3,
-      });
+      // pin content 150%
+      // 100% time to be revealed by header
+      // + 50% just to be safe/smooth
+      const pinContentScene = new Scene({
+        triggerElement: this.$el,
+        triggerHook: 0,
+        duration: '150%',
+      })
       // .on('enter', this.)
-      // .setPin(this.$refs.Content, { pushFollowers: true });
-      this.$store.dispatch('ScrollMagic/ADDTO_PAGE_CONTROLLER', scene);
+        .setPin(this.$refs.Content.$el, { pushFollowers: false });
+      this.$store.dispatch('ScrollMagic/ADDTO_PAGE_CONTROLLER', pinContentScene);
+
+      /* reveal Content titles nicely once header revealed enough space */
+      const enterVpContentScene = new Scene({
+        triggerElement: this.$el,
+        triggerHook: 0.3,
+        offset: this.viewport.height,
+      })
+        .on('enter', this.$refs.Content.enter.bind(this.$refs.Content))
+        .on('leave', this.$refs.Content.leave.bind(this.$refs.Content));
+      this.$store.dispatch('ScrollMagic/ADDTO_PAGE_CONTROLLER', enterVpContentScene);
+      this.$watch('viewport', ({ height }) => {
+        enterVpContentScene.offset(height);
+      });
     },
     showFact(index) {
       this.currentIndex = index;
     },
-    hideFact(index) {
-    },
+    // hideFact(index) {
+    // },
   },
 };
 </script>
@@ -57,7 +76,8 @@ export default {
   <article class="CommunityNotMembers">
     <UiParalaxHeader class="Header">{{ $t('title') }}</UiParalaxHeader>
     <UiSectionVTextBgContent
-      class="Content _safeVW _confortPaddings"
+      ref="Content"
+      class="Content"
       :items="$t_raw('about.items')" />
       <!-- <section class="Section Advantages">
         <div class="content">
@@ -103,10 +123,13 @@ export default {
     z-index 1
 
   .Content
-    top 0
+    position absolute
+    top -100vh
     size 100% 100vh
     padding-top 0
     padding-bottom 0
+    z-index 1
+    background-color rgba(red, 0.4)
 
   .Header
     absolute top 0 left 0
@@ -176,12 +199,7 @@ export default {
         {
           "title": "Contract with business partner",
           "description_html": "<p>Contract with business partnership will be available in the “Board” database, which only the board of director and some related person can access. If anyone else want to look at the contract, they should ask for it.</p><p>Some interested business to be part of it<ul><li>Slackline Montreal</li><li>Absolute Slackline</li><li>Paragym</li><li>Bloc shop</li></ul></p><p>The contract shall have those following informations:<ul><li>What will the CSA benefits from this partnership</li><li>What the other business benefits from this partnership</li><li>What will the member will benefits from this partnership</li><li>Date that it start and end / when we need to look back at the contract</li><li>Register Athlete (2 persons for the first year) and what would they benefits</li></ul></p>"
-        }
-      ]
-    },
-    "advantages": {
-      "title": "Other advantage of the membership",
-      "items":[
+        },
         {
           "title": "Map with highline spots and beta",
           "description_html": "<p>Blablabla</p>"
@@ -249,12 +267,7 @@ export default {
         {
           "title": "Contract with business partner",
           "description_html": "<p>Contract with business partnership will be available in the “Board” database, which only the board of director and some related person can access. If anyone else want to look at the contract, they should ask for it.</p><p>Some interested business to be part of it<ul><li>Slackline Montreal</li><li>Absolute Slackline</li><li>Paragym</li><li>Bloc shop</li></ul></p><p>The contract shall have those following informations:<ul><li>What will the CSA benefits from this partnership</li><li>What the other business benefits from this partnership</li><li>What will the member will benefits from this partnership</li><li>Date that it start and end / when we need to look back at the contract</li><li>Register Athlete (2 persons for the first year) and what would they benefits</li></ul></p>"
-        }
-      ]
-    },
-    "advantages": {
-      "title": "Other advantage of the membership",
-      "items":[
+        },
         {
           "title": "Map with highline spots and beta",
           "description_html": "<p>Blablabla</p>"

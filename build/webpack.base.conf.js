@@ -43,6 +43,7 @@ module.exports = {
       Settings: resolve("src/assets/js/Settings"),
       // to work with gsap, scrollmagic and our pro plugins
       gsapPlugins: resolve("node_modules/gsap/src/uncompressed/plugins"),
+      gsapPro: resolve("src/vendors/gsap"),
       TweenLite: resolve("node_modules/gsap/src/uncompressed/TweenLite.js"),
       TweenMax: resolve("node_modules/gsap/src/uncompressed/TweenMax.js"),
       TimelineLite: resolve("node_modules/gsap/src/uncompressed/TimelineLite.js"),

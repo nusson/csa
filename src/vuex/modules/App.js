@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { mapValues } from 'lodash';
 import LocaleService from '@/services/Locale';
 import APIService from '@/services/API';
 
@@ -50,7 +51,7 @@ export default {
         state.lang = lang;
         APIService.lang = state.lang;
       } catch (error) {
-        console.log('SET_LANG error', error);// eslint-disable-line
+        console.error("SET_LANG error", error); // eslint-disable-line
       }
     },
     /** update viewport size */
@@ -60,10 +61,7 @@ export default {
   },
   actions: {
     RESIZE({ commit }, event) {
-      const {
-        innerWidth: width,
-        innerHeight: height,
-      } = window;
+      const { innerWidth: width, innerHeight: height } = window;
       commit('UPDATE_VIEWPORT', { width, height });
     },
   },
@@ -72,5 +70,6 @@ export default {
     mode: state => state.mode,
     route: state => state.route,
     viewport: state => state.viewport,
+    fullVPStyle: state => mapValues(state.viewport, size => `${size}px`),
   },
 };

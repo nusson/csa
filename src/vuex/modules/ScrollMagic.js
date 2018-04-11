@@ -1,6 +1,8 @@
 import { Controller as SMController } from 'scrollmagic';
 import debug from 'ScrollMagicPlugins/debug.addIndicators';
 
+const SHOULD_ADD_INDICATOR = process.env.NODE_ENV === 'development';
+
 /** # ScrollMagic store
  * > All about scrollmagic
  *
@@ -16,16 +18,15 @@ export default {
   },
   mutations: {
     ADD_SCENE(state, scene) {
-      console.log('ADD_SCENE', scene, state.controller);
-      scene
-        .addIndicators()
-        .addTo(state.controller);
+      scene.addTo(state.controller);
       state.scenes.push(scene);
     },
   },
   actions: {
     ADDTO_PAGE_CONTROLLER({ commit }, scene) {
-      scene.addIndicators();
+      if (SHOULD_ADD_INDICATOR) {
+        scene.addIndicators();
+      }
       commit('ADD_SCENE', scene);
     },
   },

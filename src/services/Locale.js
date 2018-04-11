@@ -119,7 +119,7 @@ instance = new LocaleService();
 
 if (Settings.isDev) {
   window.LocaleService = instance;
-  console.log('[settings]', instance); // eslint-disable-line
+  // console.log('[settings]', instance); // eslint-disable-line
 }
 
 const LocaleServiceSingleton = instance;

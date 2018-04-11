@@ -6,7 +6,7 @@ require('ScrollMagicPlugins/animation.gsap');
 
 export default {
   bind(el, bindings, { context: _this }) {
-    console.log('bind', el, bindings, _this);
+    // console.log('bind', el, bindings, _this);
     _this._sm_ = {
       controller: new Controller(),
       scene: null,
@@ -40,7 +40,5 @@ export default {
       .addTo(_this._sm_.controller);
 
     _this._sm_.scene = scene;
-
-    console.log('inserted', el, bindings, _this, scene);
   },
 };

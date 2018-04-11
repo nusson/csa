@@ -10,7 +10,8 @@
 </doc>
 
 <script>
-import { uniqueId } from 'lodash';
+import { uniqueId, assign } from 'lodash';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'UiImage',
@@ -20,7 +21,12 @@ export default {
       default: null,
     },
     /* if defined, must be covermode ('cover' | 'contain' ...) */
-    background:{
+    background: {
+      type: String,
+      default: null,
+    },
+    /* if defined, must be 'full' to fit full viewport */
+    size: {
       type: String,
       default: null,
     },
@@ -33,6 +39,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      fullVPStyle: 'App/fullVPStyle',
+    }),
     _state() {
       if (this.loaded) return 'loaded';
       if (this.error) return 'error';
@@ -48,6 +57,19 @@ export default {
 
       return this.src;
     },
+    /** @return {String} _styles - for fullpin size
+     */
+    _styles() {
+      const styles = {};
+      if (this.size === 'full') {
+        assign(styles, this.fullVPStyle);
+      }
+      if (this.background) {
+        assign(styles, { objectFit: this.background });
+        // @todo pollifyll here
+      }
+      return styles;
+    },
   },
   mounted() {
     this.load();
@@ -60,7 +82,7 @@ export default {
       this.loaded = true;
     },
     getRandomId() {
-      return Math.ceil(Math.random() * 3000, 10);
+      return Math.ceil(Math.random() * 30, 10);
     },
   },
 };
@@ -71,8 +93,9 @@ export default {
   <img
     class="UiImage"
     :data-state="_state"
-    :data-coverMode="coverMode"
+    :data-coverMode="background"
     :src="_src"
+    :style="_styles"
     v-bind="$attrs"
     />
 </template>
@@ -96,10 +119,6 @@ export default {
       display block
 
     // @todo polyfill
-    &[data-cover-mode="cover"]
-      object-fit cover
-    &[data-cover-mode="contain"]
-      object-fit contain
     //
 
   //  ===DEBUG===

@@ -61,7 +61,7 @@ export default {
   beforeDestroyed() {},
   methods: {
     init() {
-      console.log('location', this.options);
+      // console.log('location', this.options);
       this.map = GoogleMap.createMap(this.$el, this.options);
 
       GoogleMap.geolocalisation(({ coords }) => {

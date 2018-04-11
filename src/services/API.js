@@ -41,7 +41,7 @@ instance = new APIService();
 
 if (Settings.isDev) {
   window.APIService = instance;
-  console.log('[api]', instance); // eslint-disable-line
+  // console.log('[api]', instance); // eslint-disable-line
 }
 
 const APIServiceSingleton = instance;
